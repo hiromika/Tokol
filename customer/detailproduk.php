@@ -25,7 +25,7 @@
       		<!-- start: Row -->
             
       		<div class="row">
-            <div class="col-sm-6">
+            <div class="col-md-8 col-md-offset-2">
                     <?php                  
 $query = mysqli_query($koneksi, "SELECT * FROM produk WHERE kode='$_GET[kd]'");
 $data  = mysqli_fetch_array($query);
@@ -35,7 +35,7 @@ $data  = mysqli_fetch_array($query);
                     <div class="hero-unit"  style="margin-left: 20px;">
                     <table>
                     <tr>
-                        <td rowspan="7"><img src="admin/<?php echo $data['gambar']; ?>" /></td>
+                        <td rowspan="7"><img src="../admin/<?php echo $data['gambar']; ?>" /></td>
                         </tr>
                         <tr>
                         <td colspan="4"><div class="title"><h2><?php echo $data['nama']; ?></h2></div></td>

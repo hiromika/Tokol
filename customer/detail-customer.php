@@ -165,7 +165,7 @@ if (empty($_SESSION['username'])){
                         <h3 class="panel-title"><i class="fa fa-user"></i> Data Customer </h3> 
                         </div>
                         <?php
-                    $query = mysqli_query($koneksi, "SELECT * FROM customer WHERE kd_cus='$_GET[kd_cus]'");
+                    $query = mysqli_query($koneksi, "SELECT * FROM user WHERE kd_cus='$_GET[kd_cus]'");
                     $data  = mysqli_fetch_array($query);
                     ?>
                                 <!-- </div> -->

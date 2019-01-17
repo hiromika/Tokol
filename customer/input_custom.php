@@ -8,7 +8,7 @@ if (empty($_SESSION['username'])){
 		
 		$tmp_file = $_FILES["myFile"]["tmp_name"];
         $filename = $_FILES["myFile"]["name"];
-		$success= move_uploaded_file($tmp_file , "../custom/". $filename);
+		$success= move_uploaded_file($tmp_file , "../assets/custom/". $filename);
 		
 		 $nama       = $_POST['nama'];
 		  $size = $_POST['size'];

@@ -244,7 +244,7 @@ $_SESSION['start_time'] = time();
                             
                               <div class="col-sm-3">
                               <input type="hidden" value="<?php echo $row['gambar']; ?>" name="gambar" id="gambar" />
-                            <img src="../custom/<?php echo $row['gambar']; ?>" class="img-rounded" width="150" height="200" style="border: 2px solid #666;" /> 
+                            <img src="../assets/custom/<?php echo $row['gambar']; ?>" class="img-rounded" width="150" height="200" style="border: 2px solid #666;" /> 
                             </div>
                           </div>
                           

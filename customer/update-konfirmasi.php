@@ -13,7 +13,7 @@ if (!empty($_FILES["nama_file"]["tmp_name"]))
 	    $tanggal        = $_POST['tanggal'];
         $jumlah         = $_POST['jumlah'];
 		
-	if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png")
+	if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/png")
 	{			
 		$gambar = $namafolder . basename($_FILES['nama_file']['name']);		
 		if (move_uploaded_file($_FILES['nama_file']['tmp_name'], $gambar)) {
@@ -22,12 +22,15 @@ if (!empty($_FILES["nama_file"]["tmp_name"]))
 			//echo "Gambar berhasil dikirim ke direktori".$gambar;
             echo "<script>alert('Data Konfirmasi berhasil diupdate!'); window.location = 'index.php'</script>";	   
 		} else {
-		   echo "<p>Gambar gagal dikirim</p>";
+            echo "<script>alert('Terjadi Kesalahan!'); window.location = 'index.php'</script>";	   
+		  
 		}
    } else {
-		echo "Jenis gambar yang anda kirim salah. Harus .jpg .gif .png";
+            echo "<script>alert('Terjadi Kesalahan!'); window.location = 'index.php'</script>";	   
+		
    }
 } else {
-	echo "Anda belum memilih gambar";
+            echo "<script>alert('Terjadi Kesalahan!'); window.location = 'index.php'</script>";	   
+	
 }
 }
