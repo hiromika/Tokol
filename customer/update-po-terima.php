@@ -1,7 +1,6 @@
 <?php 
 include "../conn.php";
 if(isset($_POST['update'])){
-				$id	     = $_POST['id'];
 				$nopo	 = $_POST['nopo'];
 				$kd_cus	 = $_POST['kd_cus'];
 				$kode	 = $_POST['kode'];
@@ -12,7 +11,7 @@ if(isset($_POST['update'])){
                 $qty     = $_POST['qty'];
                 $total   = $_POST['total'];
 				
-				$update = mysqli_query($koneksi, "UPDATE po_terima SET nopo='$nopo', kd_cus='$kd_cus', kode='$kode', tanggal='$tanggal', style='$style', color='$color', size='$size', qty='$qty', total='$total' WHERE id='$id'") or die(mysqli_error());
+				$update = mysqli_query($koneksi, "UPDATE po_terima SET kd_cus='$kd_cus', kode='$kode', tanggal='$tanggal', style='$style', color='$color', size='$size', qty='$qty', total='$total' WHERE nopo='$id'") or die(mysqli_error());
 				if($update){
 					echo "<script>alert('Data Po Terima berhasil diupdate!'); window.location = 'index.php'</script>";
 				}else{

@@ -64,7 +64,7 @@ if (empty($_SESSION['username'])){
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" />
+                                    <img src="../admin/<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" />
                                     <p>
                                         <?php echo $_SESSION['fullname']; ?>
                                     
@@ -110,7 +110,7 @@ $_SESSION['start_time'] = time();
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" style="border: 2px solid #3C8DBC;" />
+                            <img src="../admin/<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" style="border: 2px solid #3C8DBC;" />
                         </div>
                         <div class="pull-left info">
                             <p>Selamat Datang,<br /><?php echo $_SESSION['fullname']; ?></p>
@@ -248,7 +248,7 @@ $_SESSION['start_time'] = time();
                             </div>
                           </div>
                           
-                          <div class="form-group">
+                <!--           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Harga</label>
                               <div class="col-sm-3">
                             <input name="harga" type="text" id="harga" value="<?php echo $row['harga']; ?>" class="form-control" autocomplete="off" placeholder="Harga Produk" autocomplete="off" required />
@@ -259,11 +259,11 @@ $_SESSION['start_time'] = time();
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Status</label>
                               <div class="col-sm-3">
-                            <input name="status" type="text" id="status" value="<?php echo $row['status']; ?>" class="form-control" autocomplete="off" placeholder="Harga Produk" autocomplete="off" required />
+                            <input name="status" type="text" id="status" value="<?php echo $row['status']; ?>" class="form-control" autocomplete="off" placeholder="Status" autocomplete="off" required />
                               
                             </div>
                           </div>
-                          
+                           -->
                         
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label"></label>

@@ -34,18 +34,18 @@
                                     </p>
                                 </li>
                                 <?php
-$timeout = 10; // Set timeout minutes
-$logout_redirect_url = "../index.php"; // Set logout URL
+                                $timeout = 60; // Set timeout minutes
+                                $logout_redirect_url = "../index.php"; // Set logout URL
 
-$timeout = $timeout * 60; // Converts minutes to seconds
-if (isset($_SESSION['start_time'])) {
-    $elapsed_time = time() - $_SESSION['start_time'];
-    if ($elapsed_time >= $timeout) {
-        session_destroy();
-        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
-    }
-}
-$_SESSION['start_time'] = time();
+                                $timeout = $timeout * 60; // Converts minutes to seconds
+                                if (isset($_SESSION['start_time'])) {
+                                    $elapsed_time = time() - $_SESSION['start_time'];
+                                    if ($elapsed_time >= $timeout) {
+                                        session_destroy();
+                                        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
+                                    }
+                                }
+                                $_SESSION['start_time'] = time();
 ?>
 
                                 <!-- Small Menu -->
@@ -107,7 +107,7 @@ $_SESSION['start_time'] = time();
                     <br />
                     <!-- Main row -->
                     <?php
-            $query = mysqli_query($koneksi, "SELECT * FROM user WHERE user_id='$_GET[kd]'");
+            $query = mysqli_query($koneksi, "SELECT * FROM user WHERE id_user='$_GET[kd]'");
             $data  = mysqli_fetch_array($query);
             ?>
                     <div class="row">
@@ -132,7 +132,7 @@ $_SESSION['start_time'] = time();
                       </tr>
                       <tr>
                       <td>Fullname</td>
-                      <td colspan="1"><?php echo $data['fullname']; ?></td>
+                      <td colspan="1"><?php echo $data['nama']; ?></td>
                       </tr>
                       </table>
                       <div class="text-right">

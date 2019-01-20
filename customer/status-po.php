@@ -131,85 +131,123 @@ $_SESSION['start_time'] = time();
                         Customer
                         <small>Detail Status</small>
                     </h1>
-             <?php
-             /**if(isset($_GET['hal']) == 'hapus'){
-				$kd_dept = $_GET['kd'];
-				$cek = mysqli_query($koneksi, "SELECT * FROM departemen WHERE kd_dept='$kd_dept'");
-				if(mysqli_num_rows($cek) == 0){
-					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Data tidak ditemukan.</div>';
-				}else{
-					$delete = mysqli_query($koneksi, "DELETE FROM departemen WHERE kd_dept='$kd_dept'");
-					if($delete){
-						echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Data berhasil dihapus.</div>';
-					}else{
-						echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Data gagal dihapus.</div>';
-					}
-				}
-			}**/
-			?>
+         
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Customer</a></li>
                         <li class="active">Data customer</li>
                     </ol>
                 </section>
 
-                <!-- Main content -->
-                <section class="content">
-           <!-- /.row -->
-                    <br />
-                    <!-- Main row -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-user"></i> Data Status PO </h3> 
-                        </div>
-                        <?php
-                    $query = mysqli_query($koneksi, "SELECT * FROM po WHERE nopo='$_GET[kd]'");
-                    $data  = mysqli_fetch_array($query);
-                    ?>
+            <!-- Main content -->
+            <section class="content">
+            <!-- /.row -->
+                <br />
+                <!-- Main row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-user"></i> Data Status PO </h3> 
+                                </div>
+                                <?php
+                                $query = mysqli_query($koneksi, "SELECT * FROM po WHERE nopo='$_GET[kd]'");
+                                $data  = mysqli_fetch_array($query);
+                                ?>
                                 <!-- </div> -->
                                 <div class="panel-body">
-                      <table id="example" class="table table-hover table-bordered">
-                    <tr>
-                    <td>No PO</td>
-                    <td><?php echo $data['nopo']; ?></td>
-                    </tr>
-                    <tr>
-                    <td width="250">Style</td>
-                    <td width="550"><?php echo $data['style']; ?></td>
-                    </tr>
-                    <tr>
-                    <td>Color</td>
-                    <td><?php echo $data['color']; ?></td>
-                    </tr>
-                    <tr>
-                    <td>Size</td>
-                    <td><?php echo $data['size']; ?></td>
-                    </tr>
-                    <tr>
-                    <td>Tanggal Kirim</td>
-                    <td><?php echo $data['tanggalkirim']; ?></td>
-                    </tr>
-                    <tr>
-                    <td>Tanggal Export</td>
-                    <td><?php echo $data['tanggalexport']; ?></td>
-                    </tr>
-                    <tr>
-                    <td>Status</td>
-                    <td><?php echo $data['status']; ?></td>
-                    </tr>
-                   </table>
-                  
-                <div class="text-right">
-                <a href="index.php" class="btn btn-sm btn-warning"> Kembali <i class="fa fa-arrow-circle-right"></i></a>
-                </div>  
-                                </div> 
-              </div>
-            </div><!-- col-lg-12--> 
-                    </div><!-- /.row (main row) -->
+                                <table id="example" class="table table-hover table-bordered">
+                                    <tr>
+                                    <td>No PO</td>
+                                    <td><?php echo $data['nopo']; ?></td>
+                                    </tr>
+                                    <tr>
+                                    <td width="250">Style</td>
+                                    <td width="550"><?php echo $data['style']; ?></td>
+                                    </tr>
+                                    <tr>
+                                    <td>Color</td>
+                                    <td><?php echo $data['color']; ?></td>
+                                    </tr>
+                                    <tr>
+                                    <td>Size</td>
+                                    <td><?php echo $data['size']; ?></td>
+                                    </tr>
+                                    <tr>
+                                    <td>Tanggal Kirim</td>
+                                    <td><?php echo $data['tanggalkirim']; ?></td>
+                                    </tr>
+                                    <tr>
+                                    <td>Tanggal Export</td>
+                                    <td><?php echo $data['tanggalexport']; ?></td>
+                                    </tr>
+                                    <tr>
+                                    <td>Status</td>
+                                    <td><?php echo $data['status']; ?></td>
+                                    </tr>
+                                </table>
+                            </div> 
+                        </div>
+                    </div><!-- col-lg-12--> 
+                </div><!-- /.row (main row) -->
 
-                </section><!-- /.content -->
+            </section><!-- /.content -->
+            <section class="col-lg-12 connectedSortable"> 
+                <div class="panel panel-info">
+                <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-tag"></span> Konfirmasi Pembayaran </h3> 
+                </div>
+                <div class="panel-body">
+                <!-- <div class="table-responsive"> -->
+                    <?php
+                    $query3="SELECT * from konfirmasi where nopo='$_GET[kd]'";
+                    $hasil2=mysqli_query($koneksi, $query3) or die(mysqli_error());
+                    ?>
+                    <table id="example" class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                    <th><center>ID </center></th>
+                    <th><center>No PO</i></center></th>
+                    <th><center>Kode Cust </center></th>
+                    <th><center>Pembayaran</center></th>
+                    <th><center>Tanggal </center></th>
+                    <th><center>Jumlah </center></th>
+                    <th><center>Status</center></th>
+                    <th><center>Tools </center></th>
+                    </tr>
+                    </thead>
+                    <?php 
+                    while($data2=mysqli_fetch_array($hasil2))
+                    { ?>
+                    <tbody>
+                    <td><center><?php echo $data2['id_kon'];?></center></td>
+                    <td><center><?php echo $data2['nopo'];?></center></td>
+                    <td><center><?php echo $data2['kd_cus'];?></center></td>
+                    <td><center><?php echo $data2['bayar_via'];?></center></td>
+                    <td><center><?php echo $data2['tanggal'];?></center></td>
+                    <td><center>Rp. <?php echo number_format($data2['jumlah'],2,",",".");?></center></td>
+                    <td><center><?php
+                    if($data2['status'] == 'Bayar'){
+                    echo '<span class="label label-success">Sudah di Bayar</span>';
+                    }
+                    else if ($data2['status'] == 'Belum' ){
+                    echo '<span class="label label-danger">Belum di Bayar</span>';
+                    }
+
+                    ?>
+
+                    </center></td>
+                    <td><center><div id="thanks"><a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Detail Pembayaran" href="detail-konfirmasi.php?hal=detail&kd=<?php echo $data2['id_kon'];?>"><span class="glyphicon glyphicon-search"></span></a> 
+                    <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Konfirmasi Prmbayaran" href="edit-konfirmasi.php?hal=edit&kode=<?php echo $data2['id_kon'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
+                    </div></center></td>
+                    </tr></div>
+                    <?php   
+                    } 
+                    ?>
+                </tbody>
+                </table>
+                <!-- </div>-->
+                </div> 
+            </section><!-- right col -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 

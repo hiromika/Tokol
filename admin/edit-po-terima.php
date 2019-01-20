@@ -104,7 +104,7 @@ $_SESSION['start_time'] = time();
                 <section class="content">
                 <?php
             $kd = $_GET['kode'];
-			$sql = mysqli_query($koneksi, "SELECT * FROM po_terima WHERE id='$kd'");
+			$sql = mysqli_query($koneksi, "SELECT * FROM po_terima WHERE nopo='$kd'");
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: po-terima.php");
 			}else{
@@ -128,12 +128,6 @@ $_SESSION['start_time'] = time();
                         <div class="panel-body">
                   <div class="form-panel">
                       <form class="form-horizontal style-form" action="update-po-terima.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Kode</label>
-                              <div class="col-sm-8">
-                                  <input name="id" type="text" id="id" value="<?php echo $row['id']; ?>" class="form-control" autocomplete="off" placeholder="Auto Number Tidak perlu di isi" readonly="readonly"/>
-                              </div>
-                          </div>
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">No PO</label>
                               <div class="col-sm-3">

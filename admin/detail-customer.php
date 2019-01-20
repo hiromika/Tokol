@@ -128,7 +128,7 @@ $_SESSION['start_time'] = time();
                         <h3 class="panel-title"><i class="fa fa-user"></i> Data Customer </h3> 
                         </div>
                         <?php
-                    $query = mysqli_query($koneksi, "SELECT * FROM customer WHERE kd_cus='$_GET[kd]'");
+                    $query = mysqli_query($koneksi, "SELECT * FROM user WHERE kd_cus='$_GET[kd]'");
                     $data  = mysqli_fetch_array($query);
                     ?>
                                 <!-- </div> -->

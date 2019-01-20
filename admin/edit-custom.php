@@ -34,7 +34,7 @@
                                     </p>
                                 </li>
                                 <?php
-$timeout = 10; // Set timeout minutes
+$timeout = 60; // Set timeout minutes
 $logout_redirect_url = "../index.php"; // Set logout URL
 
 $timeout = $timeout * 60; // Converts minutes to seconds
@@ -207,7 +207,7 @@ $_SESSION['start_time'] = time();
                             
                               <div class="col-sm-3">
                               <input type="hidden" value="<?php echo $row['gambar']; ?>" name="gambar" id="gambar" />
-                            <img src="../custom/<?php echo $row['gambar']; ?>" class="img-rounded" width="150" height="200" style="border: 2px solid #666;" /> 
+                            <img src="../assets/custom/<?php echo $row['gambar']; ?>" class="img-rounded" width="150" height="200" style="border: 2px solid #666;" /> 
                             </div>
                           </div>
                           
@@ -222,7 +222,7 @@ $_SESSION['start_time'] = time();
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Status</label>
                               <div class="col-sm-3">
-                            <input name="status" type="text" id="status" value="<?php echo $row['status']; ?>" class="form-control" autocomplete="off" placeholder="Harga Produk" autocomplete="off" required />
+                            <input name="status" type="text" id="status" value="<?php echo $row['status']; ?>" class="form-control" autocomplete="off" placeholder="status" autocomplete="off" required />
                               
                             </div>
                           </div>

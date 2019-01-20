@@ -34,22 +34,22 @@
                                     </p>
                                 </li>
                                 <?php
-$timeout = 10; // Set timeout minutes
-$logout_redirect_url = "../index.php"; // Set logout URL
+                            $timeout = 60; // Set timeout minutes
+                            $logout_redirect_url = "../index.php"; // Set logout URL
 
-$timeout = $timeout * 60; // Converts minutes to seconds
-if (isset($_SESSION['start_time'])) {
-    $elapsed_time = time() - $_SESSION['start_time'];
-    if ($elapsed_time >= $timeout) {
-        session_destroy();
-        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
-    }
-}
-$_SESSION['start_time'] = time();
-?>
+                            $timeout = $timeout * 60; // Converts minutes to seconds
+                            if (isset($_SESSION['start_time'])) {
+                                $elapsed_time = time() - $_SESSION['start_time'];
+                                if ($elapsed_time >= $timeout) {
+                                    session_destroy();
+                                    echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
+                                }
+                            }
+                            $_SESSION['start_time'] = time();
+                            ?>
 
-                                <!-- Menu Body -->
-                                <?php include "menu1.php"; ?>
+                                                            <!-- Menu Body -->
+                                                            <?php include "menu1.php"; ?>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
@@ -97,11 +97,11 @@ $_SESSION['start_time'] = time();
              <?php
              if(isset($_GET['hal']) == 'hapus'){
 				$kd_cus = $_GET['kd'];
-				$cek = mysqli_query($koneksi, "SELECT * FROM customer WHERE kd_cus='$kd_cus'");
+				$cek = mysqli_query($koneksi, "SELECT * FROM user WHERE kd_cus='$kd_cus'");
 				if(mysqli_num_rows($cek) == 0){
 					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Data tidak ditemukan.</div>';
 				}else{
-					$delete = mysqli_query($koneksi, "DELETE FROM customer WHERE kd_cus='$kd_cus'");
+					$delete = mysqli_query($koneksi, "DELETE FROM user WHERE kd_cus='$kd_cus'");
 					if($delete){
 						echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Data berhasil dihapus.</div>';
 					}else{
@@ -141,13 +141,13 @@ $_SESSION['start_time'] = time();
                         <div class="panel-body">
                        <!-- <div class="table-responsive"> -->
                     <?php
-                    $query1="select * from customer";
+                    $query1="SELECT * from user WHERE role = 2";
                     
                     if(isset($_POST['qcari'])){
 	               $qcari=$_POST['qcari'];
-	               $query1="SELECT * FROM  customer 
-	               where kd_cus like '%$qcari%'
-	               or nama like '%$qcari%'  ";
+	               $query1="SELECT * FROM  user 
+	               where kd_cus AND role = 2 like '%$qcari% '
+	               or nama AND role = 2 like '%$qcari%'  ";
                     }
                     $tampil=mysqli_query($koneksi, $query1) or die(mysqli_error());
                     ?>

@@ -34,7 +34,7 @@
                                     </p>
                                 </li>
                                 <?php
-$timeout = 10; // Set timeout minutes
+$timeout = 60; // Set timeout minutes
 $logout_redirect_url = "../index.php"; // Set logout URL
 
 $timeout = $timeout * 60; // Converts minutes to seconds
@@ -104,7 +104,7 @@ $_SESSION['start_time'] = time();
                 <section class="content">
                 <?php
             $kd = $_GET['kd_cus'];
-			$sql = mysqli_query($koneksi, "SELECT * FROM customer WHERE kd_cus='$kd'");
+			$sql = mysqli_query($koneksi, "SELECT * FROM user WHERE kd_cus='$kd'");
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: customer.php");
 			}else{

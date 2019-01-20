@@ -64,7 +64,7 @@ if (empty($_SESSION['username'])){
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" />
+                                    <img src="../admin/<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" />
                                     <p>
                                         <?php echo $_SESSION['fullname']; ?>
                                     
@@ -110,7 +110,7 @@ if (empty($_SESSION['username'])){
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" style="border: 2px solid #3C8DBC;" />
+                            <img src="../admin/<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" style="border: 2px solid #3C8DBC;" />
                         </div>
                         <div class="pull-left info">
                             <p>Selamat Datang,<br /><?php echo $_SESSION['fullname']; ?></p>
@@ -175,7 +175,7 @@ if (empty($_SESSION['username'])){
                     <td>Kode</td>
                     <td><?php echo $data['kd_cus']; ?></td>
                     <td rowspan="9"><div class="pull-right image">
-                            <img src="<?php echo $data['gambar']; ?>" class="img-rounded" height="300" width="250" alt="User Image" style="border: 3px solid #333333;" />
+                            <img src="../admin/<?php echo $data['gambar']; ?>" class="img-rounded" height="300" width="250" alt="User Image" style="border: 3px solid #333333;" />
                         </div></td>
                     </tr>
                     <tr>

@@ -34,18 +34,18 @@
                                     </p>
                                 </li>
                                 <?php
-$timeout = 10; // Set timeout minutes
-$logout_redirect_url = "../index.php"; // Set logout URL
+                                $timeout = 60; // Set timeout minutes
+                                $logout_redirect_url = "../index.php"; // Set logout URL
 
-$timeout = $timeout * 60; // Converts minutes to seconds
-if (isset($_SESSION['start_time'])) {
-    $elapsed_time = time() - $_SESSION['start_time'];
-    if ($elapsed_time >= $timeout) {
-        session_destroy();
-        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
-    }
-}
-$_SESSION['start_time'] = time();
+                                $timeout = $timeout * 60; // Converts minutes to seconds
+                                if (isset($_SESSION['start_time'])) {
+                                    $elapsed_time = time() - $_SESSION['start_time'];
+                                    if ($elapsed_time >= $timeout) {
+                                        session_destroy();
+                                        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
+                                    }
+                                }
+                                $_SESSION['start_time'] = time();
 ?>
 
                                 <!-- Menu Body -->
@@ -125,13 +125,13 @@ $_SESSION['start_time'] = time();
                         <div class="panel-body">
                        <!-- <div class="table-responsive"> -->
                     <?php
-                    $query1="select * from user";
+                    $query1="SELECT * from user WHERE role = 1";
                     
                     if(isset($_POST['qcari'])){
-	               $qcari=$_POST['qcari'];
-	               $query1="SELECT * FROM  user 
-	               where fullname like '%$qcari%'
-	               or username like '%$qcari%'  ";
+    	               $qcari=$_POST['qcari'];
+    	               $query1="SELECT * FROM  user 
+    	               where fullname like '%$qcari%' AND role = 1
+    	               or username like '%$qcari%' AND role = 1  ";
                     }
                     $tampil=mysqli_query($koneksi, $query1) or die(mysqli_error());
                     ?>

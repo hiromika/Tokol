@@ -13,7 +13,7 @@ $result=mysqli_query($koneksi, "SELECT po_terima.*, produk.nama, produk.harga,us
 				LEFT JOIN produk ON po_terima.kode = produk.kode
 				LEFT JOIN user ON po_terima.kd_cus = user.id_user
                 LEFT JOIN po ON po_terima.nopo = po.nopo
-				WHERE po_terima.id ='$kodesaya'");
+				WHERE po_terima.nopo ='$kodesaya'");
 //Initialize the 3 columns and the total
 $column_date = "";
 $column_time = "";

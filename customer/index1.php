@@ -63,27 +63,27 @@ if (empty($_SESSION['username'])){
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" />
+                                    <img src="../admin/<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" />
                                     <p>
                                         <?php echo $_SESSION['fullname']; ?>
                                     
                                     </p>
                                 </li>
                                 <?php
-$timeout = 10; // Set timeout minutes
-$logout_redirect_url = "../index.php"; // Set logout URL
+                                $timeout = 60; // Set timeout minutes
+                                $logout_redirect_url = "../index.php"; // Set logout URL
 
-$timeout = $timeout * 60; // Converts minutes to seconds
-if (isset($_SESSION['start_time'])) {
-    $elapsed_time = time() - $_SESSION['start_time'];
-    if ($elapsed_time >= $timeout) {
-        session_destroy();
-        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
-    }
-}
-$_SESSION['start_time'] = time();
-?>
-<?php } ?>
+                                $timeout = $timeout * 60; // Converts minutes to seconds
+                                if (isset($_SESSION['start_time'])) {
+                                    $elapsed_time = time() - $_SESSION['start_time'];
+                                    if ($elapsed_time >= $timeout) {
+                                        session_destroy();
+                                        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
+                                    }
+                                }
+                                $_SESSION['start_time'] = time();
+                                ?>
+                                <?php } ?>
                                 <!-- Menu Body -->
                                 <?php //include "menu1.php"; ?>
                                 <!-- Menu Footer-->
@@ -109,7 +109,7 @@ $_SESSION['start_time'] = time();
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" style="border: 2px solid #3C8DBC;" />
+                            <img src="../admin/<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" style="border: 2px solid #3C8DBC;" />
                         </div>
                         <div class="pull-left info">
                             <p>Selamat Datang,<br /><?php echo $_SESSION['fullname']; ?></p>
@@ -171,6 +171,7 @@ $_SESSION['start_time'] = time();
                         <th><center>Color </center></th>
                            <th><center>Model </center></th>
                         <th><center>Foto Design </center></th>
+                        <th><center>Status </center></th>
                         <th><center>Tools </center></th>
                       </tr>
                   </thead>
@@ -184,7 +185,8 @@ $_SESSION['start_time'] = time();
                     <td><center><?php echo $data['size'];?></center></td>
                     <td><center><?php echo $data['color'];?></center></td>
                     <td><center><?php echo $data['model'];?></center></td>
-                    <td><center><img src="../custom/<?php echo $data['gambar'];?>" height="80" width="80" class="img-rounded" style="border: 2px solir #333;" /></center></td>
+                    <td><center><img src="../assets/custom/<?php echo $data['gambar'];?>" height="80" width="80" class="img-rounded" style="border: 2px solir #333;" /></center></td>
+                    <td><center><?php echo $data['status'];?></center></td>
                     <td><center><div id="thanks"> <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Edit data" href="edit-custom.php?hal=edit&kode=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
                     </div></center></td>
                     <!--<td><center><?php
@@ -214,81 +216,88 @@ $_SESSION['start_time'] = time();
 
 
                         </section>
-                        
+
                         <section class="col-lg-12 connectedSortable">                            
 
 
-                            <div class="panel panel-danger">
+                        <div class="panel panel-danger">
                         <div class="panel-heading">
                         <h3 class="panel-title"><span class="glyphicon glyphicon-barcode"></span> Data Purchase Order </h3> 
                         </div>
                         <div class="panel-body">
-                       <!-- <div class="table-responsive"> -->
-                       
-                    <?php
-                    $kodeku = $_SESSION['user_id'];
-                    $query1="SELECT * from po_terima where kd_cus='$kodeku'";
-                    $hasil=mysqli_query($koneksi, $query1) or die(mysqli_error());
-                    ?>
-                  <table id="example" class="table table-hover table-bordered">
-                  <thead>
-                      <tr>
-                        <th><center>ID </center></th>
-                        <th><center>No PO</i></center></th>
-                        <th><center>Kode Produk </center></th>
-                        <th><center>Tanggal </center></th>
-                        <th><center>Style </center></th>
-                        <th><center>Color </center></th>
-                        <th><center>Size </center></th>
-                        <th><center>Qty </center></th>
-                        <th><center>Total </center></th>
-                        <th><center>Tools </center></th>
-                      </tr>
-                  </thead>
-                     <?php 
-                     while($data=mysqli_fetch_array($hasil))
-                    { ?>
-                    <tbody>
-                    <td><center><?php echo $data['id'];?></center></td>
-                    <td><center><?php echo $data['nopo'];?></center></td>
-                    <td><center><?php echo $data['kode'];?></center></td>
-                    <td><center><?php echo $data['tanggal'];?></center></td>
-                    <td><center><?php echo $data['style'];?></center></td>
-                    <td><center><?php echo $data['color'];?></center></td>
-                    <td><center><?php echo $data['size'];?></center></td>
-                    <td><center><?php echo $data['qty'];?></center></td>
-                    <td><center>Rp. <?php echo number_format($data['total'],2,",",".");?></center></td>
-                    <td><center><div id="thanks"><a class="btn btn-sm btn-danger" data-placement="bottom" data-toggle="tooltip" title="Cetak Invoice" href="cetak-po.php?hal=cetak&kd=<?php echo $data['id'];?>"><span class="glyphicon glyphicon-print"></span></a> 
-                    <a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Status PO" href="status-po.php?hal=status&kd=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-tag"></span></a> 
-                    <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Edit PO Terima" href="edit-po-terima.php?hal=edit&kode=<?php echo $data['id'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
-                    </div></center></td>
-                    <!--<td><center><?php
-                            /**if($data['status'] == 'tetap'){
-								echo '<span class="label label-success">Tetap</span>';
-							}
-                            else if ($data['status'] == 'kontrak' ){
-								echo '<span class="label label-primary">Kontrak</span>';
-							}
-                            else if ($data['status'] == 'magang' ){
-								echo '<span class="label label-info">Magang</span>';
-							}
-                            else if ($data['status'] == 'outsource' ){
-								echo '<span class="label label-warning">Outsourcing</span>';
-							}**/
-                    
-                    ?></center></td>-->
-                    </tr></div>
-                 <?php   
-              } 
-              ?>
-                   </tbody>
-                   </table>
-                  <!-- </div>-->
-              </div> 
-              </div>
+                        <!-- <div class="table-responsive"> -->
 
+                        <?php
+                        $kodeku = $_SESSION['user_id'];
+                        $query1="SELECT *,a.nopo as no_po, a.size as size_, a.color as color_ , a.qty as qty_ , a.style as style_ , c.nama as nama_p from po_terima a 
+                        LEFT JOIN po b ON a.nopo= b.nopo  
+                        LEFT JOIN produk c ON a.kode= c.kode  
+                        where kd_cus='$kodeku'";
+                        $hasil=mysqli_query($koneksi, $query1) or die(mysqli_error());
+                        ?>
+                        <table id="example" class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th><center>No PO</i></center></th>
+                                <th><center>Kode Produk </center></th>
+                                <th><center>Tanggal </center></th>
+                                <th><center>Style </center></th>
+                                <th><center>Color </center></th>
+                                <th><center>Size </center></th>
+                                <th><center>Qty </center></th>
+                                <th><center>Total </center></th>
+                                <th><center>Status </center></th>
+                                <th><center>Option </center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php 
+                        while($data=mysqli_fetch_array($hasil))
+                        { ?>
+                            <tr>
+                                <td><center><?php echo $data['no_po'];?></center></td>
+                                <td><center><?php echo $data['nama_p'];?></center></td>
+                                <td><center><?php echo $data['tanggal'];?></center></td>
+                                <td><center><?php echo $data['style_'];?></center></td>
+                                <td><center><?php echo $data['color_'];?></center></td>
+                                <td><center><?php echo $data['size_'];?></center></td>
+                                <td><center><?php echo $data['qty'];?></center></td>
+                                <td><center>Rp. <?php echo number_format($data['total'],2,",",".");?></center></td>
+                                <td><center>
+                                    <?php 
+                                    if ($data['status'] == null) {
+                                        echo 'Menunggu Konfirmasi Oleh Admin';
+                                    }else{ 
+                                        echo $data['status']; 
+                                    }?>
+                                        
+                                    </center></td>
+                                <td><center><div id="thanks"><a class="btn btn-sm btn-danger" data-placement="bottom" data-toggle="tooltip" title="Cetak Invoice" href="cetak-po.php?hal=cetak&kd=<?php echo $data['no_po'];?>"><span class="glyphicon glyphicon-print"></span></a> 
+                                <a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Status PO" href="status-po.php?hal=status&kd=<?php echo $data['no_po'];?>"><span class="glyphicon glyphicon-tag"></span></a> 
+                                <?php if ($data['status'] == 'Terkirim') { ?>
+                                <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Konfirmasi Terima Barang" href="kon-po-terima.php?hal=edit&kode=<?php echo $data['no_po'];?>"><span class="glyphicon glyphicon-check"></span></a>  
 
-                        </section><!-- /.Left col -->
+                                <?php}else if ($data['status'] == 'Selesai') {
+                                    
+                                }else{ ?>
+                                <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Edit PO Terima" href="edit-po-terima.php?hal=edit&kode=<?php echo $data['no_po'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
+
+                                <?php } ?>
+                                </div></center></td>
+
+                            </tr>
+                            </div>
+                            <?php   
+                            } 
+                            ?>
+                        </tbody>
+                        </table>
+                        <!-- </div>-->
+                        </div> 
+                        </div>
+
+                        </section>
+                        <!-- /.Left col -->
                         <!-- right col (We are only adding the ID to make the widgets sortable)-->
                         <section class="col-lg-12 connectedSortable"> 
                         <div class="panel panel-success">
@@ -296,108 +305,47 @@ $_SESSION['start_time'] = time();
                         <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Data Profil Customer </h3> 
                         </div>
                         <div class="panel-body">
-                       <!-- <div class="table-responsive"> -->
-                    <?php
-                    $kodesaya = $_SESSION['user_id'];
-                    $query2="SELECT * from user where id_user='$kodesaya' limit 1";
-                    $hasil1=mysqli_query($koneksi, $query2) or die(mysqli_error());
-                    ?>
-                  <table id="example" class="table table-hover table-bordered">
-                  <thead>
-                      <tr>
-                        <th><center>Kode Customer </center></th>
-                        <th><center>Nama </center></th>
-                        <th><center>Alamat </center></th>
-                        <th><center>No Telp </center></th>
-                        <th><center>Username </center></th>
-                        <th><center>Password </center></th>
-                        <th><center>Tools </center></th>
-                      </tr>
-                  </thead>
-                     <?php 
-                     
-                     while($data1=mysqli_fetch_array($hasil1))
-                    { ?>
-                    <tbody>
-                    <tr>
-                    <td><center><?php echo $data1['kd_cus']; ?></center></td>
-                    <td><center><?php echo $data1['nama']; ?></center></td>
-                    <td><center><?php echo $data1['alamat']; ?></center></td>
-                    <td><center><?php echo $data1['no_telp']; ?></center></td>
-                    <td><center><?php echo $data1['username']; ?></center></td>
-                    <td><center><?php echo $data1['password']; ?></center></td>
-                    <td><center><div id="thanks"><a class="btn btn-sm btn-warning" data-placement="bottom" data-toggle="tooltip" title="Detail Customer" href="detail-customer.php?hal=edit&kd_cus=<?php echo $data1['kd_cus'];?>"><span class="glyphicon glyphicon-search"></span></a>
-                    <a class="btn btn-sm btn-info" data-placement="bottom" data-toggle="tooltip" title="Edit Customer" href="edit-customer.php?hal=edit&kd_cus=<?php echo $data1['kd_cus'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
-                      
-                    </tr></div>
-                 <?php   
-              } 
-              ?>
-                   </tbody>
-                   </table>
-                  <!-- </div>-->
-              </div> 
-                        </section><!-- right col -->
-                        <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                        <section class="col-lg-12 connectedSortable"> 
-                        <div class="panel panel-info">
-                        <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-tag"></span> Konfirmasi Pembayaran </h3> 
-                        </div>
-                        <div class="panel-body">
-                       <!-- <div class="table-responsive"> -->
-                    <?php
-                    $kd = $_SESSION['user_id'];
-                    $query3="SELECT * from konfirmasi where kd_cus='$kd'";
-                    $hasil2=mysqli_query($koneksi, $query3) or die(mysqli_error());
-                    ?>
-                  <table id="example" class="table table-hover table-bordered">
-                  <thead>
-                      <tr>
-                        <th><center>ID </center></th>
-                        <th><center>No PO</i></center></th>
-                        <th><center>Kode Cust </center></th>
-                        <th><center>Pembayaran</center></th>
-                        <th><center>Tanggal </center></th>
-                        <th><center>Jumlah </center></th>
-                        <th><center>Status</center></th>
-                        <th><center>Tools </center></th>
-                      </tr>
-                  </thead>
-                     <?php 
-                     while($data2=mysqli_fetch_array($hasil2))
-                    { ?>
-                    <tbody>
-                    <td><center><?php echo $data2['id_kon'];?></center></td>
-                    <td><center><?php echo $data2['nopo'];?></center></td>
-                    <td><center><?php echo $data2['kd_cus'];?></center></td>
-                    <td><center><?php echo $data2['bayar_via'];?></center></td>
-                    <td><center><?php echo $data2['tanggal'];?></center></td>
-                    <td><center>Rp. <?php echo number_format($data2['jumlah'],2,",",".");?></center></td>
-                    <td><center><?php
-                            if($data2['status'] == 'Bayar'){
-								echo '<span class="label label-success">Sudah di Bayar</span>';
-							}
-                            else if ($data2['status'] == 'Belum' ){
-								echo '<span class="label label-danger">Belum di Bayar</span>';
-							}
-                    
-                    ?>
-                    
-                    </center></td>
-                    <td><center><div id="thanks"><a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Detail Pembayaran" href="detail-konfirmasi.php?hal=detail&kd=<?php echo $data2['id_kon'];?>"><span class="glyphicon glyphicon-search"></span></a> 
-                    <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Konfirmasi Prmbayaran" href="edit-konfirmasi.php?hal=edit&kode=<?php echo $data2['id_kon'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
-                    </div></center></td>
-                    </tr></div>
-                 <?php   
-              } 
-              ?>
-                   </tbody>
-                   </table>
-                  <!-- </div>-->
-              </div> 
-                        </section><!-- right col -->
-						
+                        <!-- <div class="table-responsive"> -->
+                        <?php
+                        $kodesaya = $_SESSION['user_id'];
+                        $query2="SELECT * from user where id_user='$kodesaya' limit 1";
+                        $hasil1=mysqli_query($koneksi, $query2) or die(mysqli_error());
+                        ?>
+                        <table id="example" class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th><center>Kode Customer </center></th>
+                                <th><center>Nama </center></th>
+                                <th><center>Username </center></th>
+                                <th><center>Alamat </center></th>
+                                <th><center>No Telp </center></th>
+                                <th><center>Tools </center></th>
+                                </tr>
+                            </thead>
+                            <?php 
+
+                            while($data1=mysqli_fetch_array($hasil1))
+                            { ?>
+                            <tbody>
+                                <tr>
+                                <td><center><?php echo $data1['kd_cus']; ?></center></td>
+                                <td><center><?php echo $data1['nama']; ?></center></td>
+                                <td><center><?php echo $data1['username']; ?></center></td>
+                                <td><center><?php echo $data1['alamat']; ?></center></td>
+                                <td><center><?php echo $data1['no_telp']; ?></center></td>
+                                <td><center><div id="thanks"><a class="btn btn-sm btn-warning" data-placement="bottom" data-toggle="tooltip" title="Detail Customer" href="detail-customer.php?hal=edit&kd_cus=<?php echo $data1['kd_cus'];?>"><span class="glyphicon glyphicon-search"></span></a>
+                                <a class="btn btn-sm btn-info" data-placement="bottom" data-toggle="tooltip" title="Edit Customer" href="edit-customer.php?hal=edit&kd_cus=<?php echo $data1['kd_cus'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
+
+                                </tr></div>
+                                <?php   
+                                } 
+                                ?>
+                            </tbody>
+                        </table>
+                        <!-- </div>-->
+                        </div> 
+                    </section>
+                    <!-- right col -->		
                     <div class="row"> 
                     <section class="col-lg-12">
                    <?php $sqlku = mysqli_query($koneksi, "SELECT * FROM bank ORDER BY id_bank DESC limit 1"); 

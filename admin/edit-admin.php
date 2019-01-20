@@ -33,20 +33,20 @@
                                     
                                     </p>
                                 </li>
-                                <?php
-$timeout = 10; // Set timeout minutes
-$logout_redirect_url = "../index.php"; // Set logout URL
+                                                                <?php
+                                $timeout = 60; // Set timeout minutes
+                                $logout_redirect_url = "../index.php"; // Set logout URL
 
-$timeout = $timeout * 60; // Converts minutes to seconds
-if (isset($_SESSION['start_time'])) {
-    $elapsed_time = time() - $_SESSION['start_time'];
-    if ($elapsed_time >= $timeout) {
-        session_destroy();
-        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
-    }
-}
-$_SESSION['start_time'] = time();
-?>
+                                $timeout = $timeout * 60; // Converts minutes to seconds
+                                if (isset($_SESSION['start_time'])) {
+                                    $elapsed_time = time() - $_SESSION['start_time'];
+                                    if ($elapsed_time >= $timeout) {
+                                        session_destroy();
+                                        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
+                                    }
+                                }
+                                $_SESSION['start_time'] = time();
+                                ?>
 
                                 <!-- Small Menu -->
                                 <?php include "menu1.php"; ?>
@@ -107,7 +107,7 @@ $_SESSION['start_time'] = time();
                     <br />
                     <!-- Main row -->
                     <?php
-            $query = mysqli_query($koneksi, "SELECT * FROM user WHERE user_id='$_GET[kd]'");
+            $query = mysqli_query($koneksi, "SELECT * FROM user WHERE id_user='$_GET[kd]'");
             $data  = mysqli_fetch_array($query);
             ?>
                     <div class="row">
@@ -118,11 +118,17 @@ $_SESSION['start_time'] = time();
                         </div>
                         <div class="panel-body">
                   <div class="form-panel">
-                      <form class="form-horizontal style-form" action="update-admin.php" method="post" name="form1" id="form1">
+                      <form class="form-horizontal style-form" action="update-admin.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">User ID</label>
                               <div class="col-sm-10">
-                                  <input name="user_id" type="text" id="user_id" class="form-control" value="<?php echo $data['user_id'];?>" readonly="readonly" autofocus="on" />
+                                  <input name="user_id" type="text" id="user_id" class="form-control" value="<?php echo $data['id_user'];?>" readonly="readonly" autofocus="on" />
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Fullname</label>
+                              <div class="col-sm-10">
+                                  <input name="fullname" class="form-control" id="fullname" type="text" value="<?php echo $data['nama'];?>" required />
                               </div>
                           </div>
                           <div class="form-group">
@@ -133,21 +139,21 @@ $_SESSION['start_time'] = time();
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Password</label>
+                              <label class="col-sm-2 col-sm-2 control-label">New Password</label>
                               <div class="col-sm-10">
-                                  <input name="password" type="text" id="password" class="form-control" value="<?php echo $data['password'];?>" readonly="readonly" />
+                                  <input name="password" type="text" id="password" class="form-control" value="" />
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Fullname</label>
-                              <div class="col-sm-10">
-                                  <input name="fullname" class="form-control" id="fullname" type="text" value="<?php echo $data['fullname'];?>" required />
-                              </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Gambar Profil</label>
+                              <label class="col-sm-2 col-sm-2 control-label">Gambar Saat ini</label>
                               <div class="col-sm-10">
                                   <img src="<?php echo $data['gambar'];?>" width="200" height="250" class="img-rounded" style="border: 3px solid #888;"/>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Gambar Baru</label>
+                              <div class="col-sm-10">
+                                  <input name="nama_file" id="nama_file" type="file" />
                               </div>
                           </div>
                           <div class="form-group">

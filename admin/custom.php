@@ -33,22 +33,22 @@
                                     
                                     </p>
                                 </li>
-                                <?php
-$timeout = 10; // Set timeout minutes
-$logout_redirect_url = "../index.php"; // Set logout URL
+                                                                <?php
+                                $timeout = 60; // Set timeout minutes
+                                $logout_redirect_url = "../index.php"; // Set logout URL
 
-$timeout = $timeout * 60; // Converts minutes to seconds
-if (isset($_SESSION['start_time'])) {
-    $elapsed_time = time() - $_SESSION['start_time'];
-    if ($elapsed_time >= $timeout) {
-        session_destroy();
-        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
-    }
-}
-$_SESSION['start_time'] = time();
-?>
+                                $timeout = $timeout * 60; // Converts minutes to seconds
+                                if (isset($_SESSION['start_time'])) {
+                                    $elapsed_time = time() - $_SESSION['start_time'];
+                                    if ($elapsed_time >= $timeout) {
+                                        session_destroy();
+                                        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
+                                    }
+                                }
+                                $_SESSION['start_time'] = time();
+                                ?>
 
-                                <!-- Menu Body -->
+                                                                <!-- Menu Body -->
                                 <?php include "menu1.php"; ?>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
@@ -171,7 +171,7 @@ $_SESSION['start_time'] = time();
                     <td><center><?php echo $data['size'];?></center></td>
                     <td><center><?php echo $data['color'];?></center></td>
                     <td><center><?php echo $data['model'];?></center></td>
-                    <td><center><img src="../custom/<?php echo $data['gambar'];?>" height="60" width="60" class="img-circle" /></center></td>
+                    <td><center><img src="../assets/custom/<?php echo $data['gambar'];?>" height="60" width="60" class="img-circle" /></center></td>
                      <!--<td><center><?php
                             /**if($data['status'] == 'tetap'){
 								echo '<span class="label label-success">Tetap</span>';

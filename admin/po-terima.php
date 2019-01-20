@@ -34,19 +34,19 @@
                                     </p>
                                 </li>
                                 <?php
-$timeout = 10; // Set timeout minutes
-$logout_redirect_url = "../index.php"; // Set logout URL
+                                $timeout = 10; // Set timeout minutes
+                                $logout_redirect_url = "../index.php"; // Set logout URL
 
-$timeout = $timeout * 60; // Converts minutes to seconds
-if (isset($_SESSION['start_time'])) {
-    $elapsed_time = time() - $_SESSION['start_time'];
-    if ($elapsed_time >= $timeout) {
-        session_destroy();
-        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
-    }
-}
-$_SESSION['start_time'] = time();
-?>
+                                $timeout = $timeout * 60; // Converts minutes to seconds
+                                if (isset($_SESSION['start_time'])) {
+                                    $elapsed_time = time() - $_SESSION['start_time'];
+                                    if ($elapsed_time >= $timeout) {
+                                        session_destroy();
+                                        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
+                                    }
+                                }
+                                $_SESSION['start_time'] = time();
+                                ?>
 
                                 <!-- Menu Body -->
                                 <?php include "menu1.php"; ?>
@@ -141,13 +141,13 @@ $_SESSION['start_time'] = time();
                         <div class="panel-body">
                        <!-- <div class="table-responsive"> -->
                     <?php
-                    $query1="select * from po_terima order by nopo DESC";
+                    $query1="SELECT *,a.nopo as nopo_ ,a.size as size_, a.color as color_ , a.qty as qty_ , a.style as style_   from po_terima a LEFT JOIN po b ON a.nopo = b.nopo  order by a.nopo DESC";
                     
                     if(isset($_POST['qcari'])){
 	               $qcari=$_POST['qcari'];
-	               $query1="SELECT * FROM  po_terima 
-	               where nopo  like '%$qcari%' 
-	               or kd_cus like '%$qcari%'   ";
+	               $query1="SELECT *,a.nopo as nopo_, a.size as size_, a.color as color_ , a.qty as qty_ , a.style as style_  FROM  po_terima a LEFT JOIN po b ON a.nopo = b.nopo  
+	               where a.nopo  like '%$qcari%' 
+	               or a.kd_cus like '%$qcari%'";
                     }
                     $tampil=mysqli_query($koneksi, $query1) or die(mysqli_error());
                     ?>
@@ -164,6 +164,7 @@ $_SESSION['start_time'] = time();
                         <th><center>Size </center></th>
                         <th><center>Qty </center></th>
                         <th><center>Total </center></th>
+                        <th><center>Status </center></th>
                         <th><center>Tools</center></th>
                       </tr>
                   </thead>
@@ -178,14 +179,31 @@ $_SESSION['start_time'] = time();
                     <td><a href="detail-customer.php?hal=edit&kd=<?php echo $data['kd_cus'];?>"><span class="glyphicon glyphicon-user"></span> <?php echo $data['kd_cus'];?></td>
                     <td><a href="detail-produk.php?hal=edit&kd=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-tag"></span> <?php echo $data['kode'];?></td>
                     <td><center><?php echo $data['tanggal'];?></center></td>
-                    <td><center><?php echo $data['style'];?></center></td>
-                    <td><center><?php echo $data['color'];?></center></td>
-                    <td><center><?php echo $data['size'];?></center></td>
-                    <td><center><?php echo $data['qty'];?></center></td>
+                    <td><center><?php echo $data['style_'];?></center></td>
+                    <td><center><?php echo $data['color_'];?></center></td>
+                    <td><center><?php echo $data['size_'];?></center></td>
+                    <td><center><?php echo $data['qty_'];?></center></td>
                     <td>Rp. <?php echo number_format($data['total'],2,",",".");?></td>
-                    <td><center><div id="thanks"><a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="simpan ke PO kirim" href="input-po-kirim.php?hal=tambah&nopo=<?php echo $data['id'];?>"><span class="glyphicon glyphicon-floppy-disk"></span></a> 
-                    <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Edit PO Terima" href="edit-po-terima.php?hal=edit&kode=<?php echo $data['id'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
-                    <a onclick="return confirm ('Yakin hapus PO <?php echo $data['nopo'];?>.?');" class="btn btn-sm btn-danger tooltips" data-placement="bottom" data-toggle="tooltip" title="Hapus PO Terima" href="po-terima.php?hal=hapus&kd=<?php echo $data['id'];?>"><span class="glyphicon glyphicon-trash"></a></center></td></tr></div>
+                    <td><center><?php 
+                    if ($data['status'] == null) {
+                        echo 'Menunggu Konfirmasi';
+                    }else{
+                        echo $data['status'];
+                        
+                    }
+
+                    ?></center></td>
+                    <td><center><div id="thanks">
+                    <?php if ($data['status'] ='Proses') {
+                        
+                    }else{ ?>
+                        
+                    <a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Konfirmasi PO" href="input-po-kirim.php?hal=tambah&nopo=<?php echo $data['nopo_'];?>"><span class="glyphicon glyphicon-check"></span></a> 
+                        
+                    <?php } ?>
+
+                    <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Edit PO Terima" href="edit-po-terima.php?hal=edit&kode=<?php echo $data['nopo_'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
+                    <a onclick="return confirm ('Yakin hapus PO <?php echo $data['nopo_'];?>.?');" class="btn btn-sm btn-danger tooltips" data-placement="bottom" data-toggle="tooltip" title="Hapus PO Terima" href="po-terima.php?hal=hapus&kd=<?php echo $data['nopo_'];?>"><span class="glyphicon glyphicon-trash"></a></center></td></tr></div>
                  <?php   
               } 
               ?>

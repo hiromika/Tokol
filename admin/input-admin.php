@@ -34,19 +34,19 @@
                                     </p>
                                 </li>
                                 <?php
-$timeout = 10; // Set timeout minutes
-$logout_redirect_url = "../index.php"; // Set logout URL
+                                $timeout = 60; // Set timeout minutes
+                                $logout_redirect_url = "../index.php"; // Set logout URL
 
-$timeout = $timeout * 60; // Converts minutes to seconds
-if (isset($_SESSION['start_time'])) {
-    $elapsed_time = time() - $_SESSION['start_time'];
-    if ($elapsed_time >= $timeout) {
-        session_destroy();
-        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
-    }
-}
-$_SESSION['start_time'] = time();
-?>
+                                $timeout = $timeout * 60; // Converts minutes to seconds
+                                if (isset($_SESSION['start_time'])) {
+                                    $elapsed_time = time() - $_SESSION['start_time'];
+                                    if ($elapsed_time >= $timeout) {
+                                        session_destroy();
+                                        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
+                                    }
+                                }
+                                $_SESSION['start_time'] = time();
+                                ?>
 
                                 <!-- Menu Body -->
                                 <?php include "menu1.php"; ?>
@@ -115,12 +115,12 @@ $_SESSION['start_time'] = time();
                         <div class="panel-body">
                   <div class="form-panel">
                       <form class="form-horizontal style-form" action="insert-admin.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                          <div class="form-group">
+                      <!--     <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">User ID</label>
                               <div class="col-sm-10">
                                   <input name="user_id" type="text" id="user_id" class="form-control" placeholder="Tidak perlu di isi" autofocus="on" readonly="readonly" />
                               </div>
-                          </div>
+                          </div> -->
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Username</label>
                               <div class="col-sm-10">

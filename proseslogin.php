@@ -33,7 +33,7 @@ if (mysqli_num_rows($q) == 1) {
 
     if($row['role'] == 1){
 		header('location:admin/index.php');
-    }else{
+    }else if ($row['role'] == 2) {
 		header('location:customer/index.php');
     }
 

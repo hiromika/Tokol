@@ -34,7 +34,7 @@
                                     </p>
                                 </li>
                                 <?php
-                                    $timeout = 10; // Set timeout minutes
+                                    $timeout = 60; // Set timeout minutes
                                     $logout_redirect_url = "../index.php"; // Set logout URL
 
                                     $timeout = $timeout * 60; // Converts minutes to seconds
@@ -151,7 +151,7 @@
                         </div><!-- ./col -->
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
-                            <?php $tampil2=mysqli_query($koneksi, "SELECT * from user order by id_user desc");
+                            <?php $tampil2=mysqli_query($koneksi, "SELECT * from user WHERE role = 2 order by id_user desc");
                         $pel=mysqli_num_rows($tampil2);
                     ?>
                             <div class="small-box bg-yellow">
@@ -172,7 +172,7 @@
                             </div>
                         </div><!-- ./col -->
                         <div class="col-lg-3 col-xs-6">
-                        <?php $tampil3=mysqli_query($koneksi, "SELECT * from user order by id_user desc");
+                        <?php $tampil3=mysqli_query($koneksi, "SELECT * from user  WHERE role = 1 order by id_user desc");
                         $user=mysqli_num_rows($tampil3);
                     ?>
                             <!-- small box -->
@@ -269,7 +269,7 @@
                         <div class="panel-body">
                        <!-- <div class="table-responsive"> -->
                     <?php
-                    $query2="SELECT * from user order by id_user desc limit 5";
+                    $query2="SELECT * from user  WHERE role = 1 order by id_user desc limit 5";
                     $hasil1=mysqli_query($koneksi, $query2) or die(mysqli_error());
                     ?>
                   <table id="example" class="table table-hover table-bordered">

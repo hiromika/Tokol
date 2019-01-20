@@ -64,7 +64,7 @@ if (empty($_SESSION['username'])){
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header bg-light-blue">
-                                    <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" />
+                                    <img src="../admin/<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" />
                                     <p>
                                         <?php echo $_SESSION['fullname']; ?>
                                     
@@ -110,7 +110,7 @@ $_SESSION['start_time'] = time();
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" style="border: 2px solid #3C8DBC;" />
+                            <img src="../admin/<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" style="border: 2px solid #3C8DBC;" />
                         </div>
                         <div class="pull-left info">
                             <p>Selamat Datang,<br /><?php echo $_SESSION['fullname']; ?></p>
@@ -141,7 +141,7 @@ $_SESSION['start_time'] = time();
                 <section class="content">
                 <?php
             $kd = $_GET['kode'];
-			$sql = mysqli_query($koneksi, "SELECT * FROM po_terima WHERE id='$kd'");
+			$sql = mysqli_query($koneksi, "SELECT *,b.nama as nama_p FROM po_terima a LEFT JOIN produk b ON a.kode = b.kode WHERE nopo='$kd'");
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: po-terima.php");
 			}else{
@@ -160,17 +160,11 @@ $_SESSION['start_time'] = time();
                         <div class="col-lg-12">
                         <div class="panel panel-success">
                         <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-user"></i> Edit PO Terima</h3> 
+                        <h3 class="panel-title"><i class="fa fa-user"></i> Edit PO</h3> 
                         </div>
                         <div class="panel-body">
                   <div class="form-panel">
                       <form class="form-horizontal style-form" action="update-po-terima.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Kode</label>
-                              <div class="col-sm-8">
-                                  <input name="id" type="text" id="id" value="<?php echo $row['id']; ?>" class="form-control" autocomplete="off" placeholder="Auto Number Tidak perlu di isi" readonly="readonly"/>
-                              </div>
-                          </div>
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">No PO</label>
                               <div class="col-sm-3">
@@ -186,9 +180,9 @@ $_SESSION['start_time'] = time();
                             </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Kode</label>
+                              <label class="col-sm-2 col-sm-2 control-label">Nama Produk</label>
                               <div class="col-sm-3">
-                            <input name="kode" type="text" id="kode" value="<?php echo $row['kode']; ?>" class="form-control" autocomplete="off" readonly="readonly" />
+                            <input name="kode" type="text" id="kode" value="<?php echo $row['nama_p']; ?>" class="form-control" autocomplete="off" readonly="readonly" />
                               
                             </div>
                           </div>

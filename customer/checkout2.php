@@ -9,10 +9,11 @@ if (empty($_SESSION['username'])){
         $a = "Belum";
         $b = $_GET['total'];
         $c = date("Y-m-d H:i:s");
-        //$nopo = date("dmYHis");
-        $query1 = mysqli_query($koneksi, "INSERT INTO konfirmasi (nopo, kd_cus, bayar_via, tanggal, jumlah, bukti_transfer, status) VALUES ('$_SESSION[user_id]', '$_SESSION[user_id]', '0', '$c', '$b', 0, '$a')") or die(mysqli_error());
+     
 
-        $input = mysqli_query($koneksi, "INSERT INTO po_terima(nopo, kd_cus, kode, tanggal, color, size, qty, total) SELECT session, session, kode, tanggal, color, size, qty, jumlah FROM cart WHERE session='$_SESSION[user_id]'") or die(mysqli_error());
+        $input = mysqli_query($koneksi, "INSERT INTO po_terima(kd_cus, kode, tanggal, color, size, qty, total) SELECT session, kode, tanggal, color, size, qty, jumlah FROM cart WHERE session='$_SESSION[user_id]'") or die(mysqli_error());
+        $nopo = mysqlI_insert_id($koneksi);
+        $query1 = mysqli_query($koneksi, "INSERT INTO konfirmasi (nopo, kd_cus, bayar_via, tanggal, jumlah, bukti_transfer, status) VALUES ($nopo, '$_SESSION[user_id]', '0', '$c', '$b', 0, '$a')") or die(mysqli_error());
                      
                       
         if ($query1 and $input) {

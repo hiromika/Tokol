@@ -37,24 +37,24 @@ while($row = mysqli_fetch_array($result))
     $column_no_hp = $column_no_hp.$no_hp."\n";
     $column_status = $column_status.$status."\n";
 
-			
+}
+            
 //mysql_close();
 
 //Create a new PDF file
 $pdf = new FPDF('P','mm',array(210,297)); //L For Landscape / P For Portrait
 $pdf->AddPage();
 
-$pdf->Image('../img/logo3.png',10,10,-175);
+// $pdf->Image('../assets/img/logo3.png',10,10,-175); 
 //$pdf->Image('../images/BBRI.png',190,10,-200);
 $pdf->SetFont('Arial','B',13);
 $pdf->Cell(80);
 $pdf->Cell(30,10,'DATA PRODUK',0,0,'C');
 $pdf->Ln();
 $pdf->Cell(80);
-$pdf->Cell(30,10,'Eat Them T-Shirt Sablon DTG',0,0,'C');
+$pdf->Cell(30,10,'Click Clothing T-Shirt Sablon DTG',0,0,'C');
 $pdf->Ln();
 
-}
 //Fields Name position
 $Y_Fields_Name_position = 30;
 
