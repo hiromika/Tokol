@@ -141,7 +141,7 @@ $_SESSION['start_time'] = time();
                 <section class="content">
                 <?php
                 $kd = $_GET['kd_cus'];
-			$sql = mysqli_query($koneksi, "SELECT * FROM customer WHERE kd_cus='$kd'");
+			$sql = mysqli_query($koneksi, "SELECT * FROM user WHERE kd_cus='$kd'");
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: customer.php");
 			}else{
@@ -179,10 +179,10 @@ $_SESSION['start_time'] = time();
                         <div class="panel-body">
                   <div class="form-panel">
                       <form class="form-horizontal style-form" action="update-customer.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                          <div class="form-group">
+                          <div class="form-group" style="display: none;">
                               <label class="col-sm-2 col-sm-2 control-label">Kode</label>
                               <div class="col-sm-8">
-                                  <input name="kd_cust" type="text" id="kd_cust" value="<?php echo $row['kd_cus']; ?>" class="form-control" autocomplete="off" placeholder="Auto Number Tidak perlu di isi"/>
+                                  <input name="kd_cust" type="text" disabled="" id="kd_cust" value="<?php echo $row['kd_cus']; ?>" class="form-control" autocomplete="off" placeholder="Auto Number Tidak perlu di isi"/>
                               </div>
                           </div>
                           <div class="form-group">
@@ -224,7 +224,7 @@ $_SESSION['start_time'] = time();
                               <label class="col-sm-2 col-sm-2 control-label">Foto Sebelumnya</label>
                             
                               <div class="col-sm-3">
-                            <img src="<?php echo $row['gambar']; ?>" class="img-rounded" width="150" height="200" style="border: 2px solid #666;" /> 
+                            <img src="../admin/<?php echo $row['gambar']; ?>" class="img-rounded" width="150" height="200" style="border: 2px solid #666;" /> 
                             </div>
                           </div>
                           <div class="form-group">
