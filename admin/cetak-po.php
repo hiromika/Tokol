@@ -10,11 +10,11 @@ require('../conn.php');
 $kodesaya = $_GET['kd'];
 //Select the Products you want to show in your PDF file
 //$result=mysqli_query($koneksi, "SELECT * FROM po_terima where id like '%$kodesaya%' ");
-$result=mysqli_query($koneksi, "SELECT po_terima.*, produk.nama, produk.harga, customer.no_telp, po.status FROM po_terima
+$result=mysqli_query($koneksi, "SELECT po_terima.*, produk.nama, produk.harga, user.no_telp, po.status FROM po_terima
 				LEFT JOIN produk ON po_terima.kode = produk.kode
-				LEFT JOIN customer ON po_terima.kd_cus = customer.kd_cus
+				LEFT JOIN user ON po_terima.kd_cus = user.kd_cus
                 LEFT JOIN po ON po_terima.nopo = po.nopo
-				WHERE po_terima.id='$_GET[kd]'") or die(mysqli_error());
+				WHERE po_terima.nopo='$kodesaya'") or die(mysqli_error($koneksi));
 
 //Initialize the 3 columns and the total
 $column_date = "";
@@ -57,14 +57,13 @@ while($row = mysqli_fetch_array($result))
 $pdf = new FPDF('P','mm',array(210,297)); //L For Landscape / P For Portrait
 $pdf->AddPage();
 
-$pdf->Image('../img/logo3.png',10,10,-175);
 //$pdf->Image('../images/BBRI.png',190,10,-200);
 $pdf->SetFont('Arial','B',13);
 $pdf->Cell(80);
 $pdf->Cell(30,10,'INVOICE PURCHASE ORDER',0,0,'C');
 $pdf->Ln();
 $pdf->Cell(80);
-$pdf->Cell(30,10,'Eat Them T-Shirt Sablon DTG',0,0,'C');
+$pdf->Cell(30,10,'Click Sablon DTG',0,0,'C');
 $pdf->Ln();
 
 //Fields Name position

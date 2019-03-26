@@ -12,6 +12,7 @@ $namafolder="gambar_produk/"; //tempat menyimpan file
 			$harga      = $_POST['harga'];
 	        $keterangan = $_POST['keterangan'];
 	        $stok       = $_POST['stok'];
+	        $id_stok    = $_POST['id_stok'];
 			
 		if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png")
 		{			

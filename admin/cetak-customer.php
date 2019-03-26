@@ -11,7 +11,7 @@ require('../conn.php');
 //Select the Products you want to show in your PDF file
 //$result=mysql_query("SELECT * FROM daily_bbri where date like '%$periode%' ");
 
-$result=mysqli_query($koneksi, "SELECT * FROM customer ORDER BY kd_cus ASC") or die(mysql_error());
+$result=mysqli_query($koneksi, "SELECT * FROM user WHERE role = 2 ORDER BY kd_cus ASC") or die(mysql_error());
 
 //Initialize the 3 columns and the total
 $column_nik = "";
@@ -44,7 +44,7 @@ while($row = mysqli_fetch_array($result))
 $pdf = new FPDF('P','mm',array(210,297)); //L For Landscape / P For Portrait
 $pdf->AddPage();
 
-$pdf->Image('../img/logo3.png',10,10,-175);
+// $pdf->Image('../img/logo3.png',10,10,-175);
 //$pdf->Image('../images/BBRI.png',190,10,-200);
 $pdf->SetFont('Arial','B',13);
 $pdf->Cell(80);

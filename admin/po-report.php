@@ -1,190 +1,110 @@
-<?php include('header.php'); ?>
-
-    <body class="skin-blue">
-        <!-- header logo: style can be found in header.less -->
-        <header class="header">
-            <a href="index.php" class="logo">
-                <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                Administrator
-            </a>
-            <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <div class="navbar-right">
-                    <ul class="nav navbar-nav">
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span><?php echo $_SESSION['fullname']; ?> <i class="caret"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header bg-light-blue">
-                                    <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" />
-                                    <p>
-                                        <?php echo $_SESSION['fullname']; ?>
-                                    
-                                    </p>
-                                </li>
-                                <?php
-$timeout = 10; // Set timeout minutes
-$logout_redirect_url = "../index.php"; // Set logout URL
-
-$timeout = $timeout * 60; // Converts minutes to seconds
-if (isset($_SESSION['start_time'])) {
-    $elapsed_time = time() - $_SESSION['start_time'];
-    if ($elapsed_time >= $timeout) {
-        session_destroy();
-        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
-    }
-}
-$_SESSION['start_time'] = time();
-?>
-
-                                <!-- Menu Body -->
-                                <?php include "menu1.php"; ?>
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="detail-admin.php?hal=edit&kd=<?php echo $_SESSION['user_id'];?>" class="btn btn-default btn-flat">Profil</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="../logout.php" class="btn btn-default btn-flat" onclick="return confirm ('Apakah Anda Akan Keluar.?');"> Keluar </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
-                <!-- sidebar: style can be found in sidebar.less -->
-                <section class="sidebar">
-                    <!-- Sidebar user panel -->
-                    <div class="user-panel">
-                        <div class="pull-left image">
-                            <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" style="border: 2px solid #3C8DBC;" />
-                        </div>
-                        <div class="pull-left info">
-                            <p>Selamat Datang,<br /><?php echo $_SESSION['fullname']; ?></p>
-
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                        </div>
+<?php include 'header.php' ; ?>
+ <!-- content-wrapper -->
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+        Laporan PO
+        </h1>
+        <ol class="breadcrumb">
+        Laporan PO
+        </ol>
+    </section>
+    <br />
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+              <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Laporan PO</h3>
+                        <!-- <a href="" title="Add Divisi" id="divisi_add" data-toggle="modal" class="btn btn-info pull-right">Add Divisi</a> -->
                     </div>
-                    <?php include "menu.php"; ?>
-                </section>
-                <!-- /.sidebar -->
-            </aside>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <!--PAGE CONTENT BEGINS-->
+                        <section class="content">
 
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        Purchase Order
-                        <small>Administrator</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Purchase Order</a></li>
-                        <li class="active">Data PO Terima</li>
-                    </ol>
-                </section>
+                            <!-- Small boxes (Stat box) -->
+                            <div class="row">
+                                <!-- Main row -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="panel panel-success">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title"><i class="fa fa-user"></i> Data PO Terima</h3> 
+                                            </div>
+                                            <div class="panel-body">
+                                                <!-- <div class="table-responsive"> -->
+                                                    <?php
+                                                    $query1="select * from po_terima";
 
-                <!-- Main content -->
-                <section class="content">
+                                                    if(isset($_POST['qcari'])){
+                                                        $qcari=$_POST['qcari'];
+                                                        $query1="SELECT * FROM  po_terima 
+                                                        where nopo like '%$qcari%'
+                                                        or kd_cus like '%$qcari%'  ";
+                                                    }
+                                                    $tampil=mysqli_query($koneksi, $query1) or die(mysqli_error());
+                                                    ?>
+                                                    <table id="example" class="table table-hover table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><center>No </center></th>
+                                                                <th><center>No PO </i></center></th>
+                                                                <th><center>Customer </center></th>
+                                                                <th><center>Produk </center></th>
+                                                                <th><center>Tanggal </center></th>
+                                                                <th><center>Style </center></th>
+                                                                <th><center>Color </center></th>
+                                                                <th><center>Size </center></th>
+                                                                <th><center>Qty </center></th>
+                                                                <th><center>Total </center></th>
+                                                                <th><center>Tools</center></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <?php 
+                                                        $no=0;
+                                                        while($data=mysqli_fetch_array($tampil))
+                                                            { $no++; ?>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><center><?php echo $no; ?></center></td>
+                                                                        <td><?php echo $data['nopo'];?></td>
+                                                                        <td><a href="detail-customer.php?hal=edit&kd=<?php echo $data['kd_cus'];?>"><span class="glyphicon glyphicon-user"></span> <?php echo $data['kd_cus'];?></td>
+                                                                            <td><a href="detail-produk.php?hal=edit&kd=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-tag"></span> <?php echo $data['kode'];?></td>
+                                                                                <td><center><?php echo $data['tanggal'];?></center></td>
+                                                                                <td><center><?php echo $data['style'];?></center></td>
+                                                                                <td><center><?php echo $data['color'];?></center></td>
+                                                                                <td><center><?php echo $data['size'];?></center></td>
+                                                                                <td><center><?php echo $data['qty'];?></center></td>
+                                                                                <td>Rp. <?php echo number_format($data['total'],2,",",".");?></td>
+                                                                                <td><center><div id="thanks"><a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Cetak PO" href="cetak-po.php?hal=cetak&kd=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-print"></span></a> </div>
+                                                                                    <?php   
+                                                                                } 
+                                                                                ?>
+                                                                            </tbody>
+                                                                        </table>
 
-                    <!-- Small boxes (Stat box) -->
-                    <div class="row">
-                    
-              <div class="col-lg-4">
-              <form action='po-report.php' method="POST">
-          
-	       <input type='text' class="form-control" style="margin-bottom: 4px;" name='qcari' placeholder='Cari No PO & Kode Customer' required /> 
-           <input type='submit' value='Cari Data' class="btn btn-sm btn-primary" /> <a href='po-report.php' class="btn btn-sm btn-success" >Refresh</i></a>
-          	</div>
-              </div>
-           <!-- /.row -->
-                    <br />
-                    <!-- Main row -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                    <div class="panel panel-success">
-                        <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-user"></i> Data PO Terima</h3> 
-                        </div>
-                        <div class="panel-body">
-                       <!-- <div class="table-responsive"> -->
-                    <?php
-                    $query1="select * from po_terima";
-                    
-                    if(isset($_POST['qcari'])){
-	               $qcari=$_POST['qcari'];
-	               $query1="SELECT * FROM  po_terima 
-	               where nopo like '%$qcari%'
-	               or kd_cus like '%$qcari%'  ";
-                    }
-                    $tampil=mysqli_query($koneksi, $query1) or die(mysqli_error());
-                    ?>
-                  <table id="example" class="table table-hover table-bordered">
-                  <thead>
-                      <tr>
-                        <th><center>No </center></th>
-                        <th><center>No PO </i></center></th>
-                        <th><center>Customer </center></th>
-                        <th><center>Produk </center></th>
-                        <th><center>Tanggal </center></th>
-                        <th><center>Style </center></th>
-                        <th><center>Color </center></th>
-                        <th><center>Size </center></th>
-                        <th><center>Qty </center></th>
-                        <th><center>Total </center></th>
-                        <th><center>Tools</center></th>
-                      </tr>
-                  </thead>
-                     <?php 
-                     $no=0;
-                     while($data=mysqli_fetch_array($tampil))
-                    { $no++; ?>
-                    <tbody>
-                    <tr>
-                    <td><center><?php echo $no; ?></center></td>
-                    <td><?php echo $data['nopo'];?></td>
-                    <td><a href="detail-customer.php?hal=edit&kd=<?php echo $data['kd_cus'];?>"><span class="glyphicon glyphicon-user"></span> <?php echo $data['kd_cus'];?></td>
-                    <td><a href="detail-produk.php?hal=edit&kd=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-tag"></span> <?php echo $data['kode'];?></td>
-                    <td><center><?php echo $data['tanggal'];?></center></td>
-                    <td><center><?php echo $data['style'];?></center></td>
-                    <td><center><?php echo $data['color'];?></center></td>
-                    <td><center><?php echo $data['size'];?></center></td>
-                    <td><center><?php echo $data['qty'];?></center></td>
-                    <td>Rp. <?php echo number_format($data['total'],2,",",".");?></td>
-                    <td><center><div id="thanks"><a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Cetak PO" href="cetak-po.php?hal=cetak&kd=<?php echo $data['id'];?>"><span class="glyphicon glyphicon-print"></span></a> </div>
-                 <?php   
-              } 
-              ?>
-                   </tbody>
-                   </table>
-                  <!-- </div>-->
-               <!-- <div class="text-right">
-                  <a href="input-po-terima.php" class="btn btn-sm btn-warning">Tambah Produk <i class="fa fa-arrow-circle-right"></i></a>
-              
-                </div>-->
-              </div> 
-              </div>
-            </div><!-- col-lg-12--> 
-                    </div><!-- /.row (main row) -->
+                                                                    </div> 
+                                                                </div>
+                                                            </div><!-- col-lg-12--> 
+                                                        </div><!-- /.row (main row) -->
 
-                </section><!-- /.content -->
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
+                                                    </section><!-- /.content -->
 
-<?php include('footer.php'); ?>
+
+                        <!--PAGE CONTENT ENDS-->
+                        
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+</div><!-- /.content-wrapper -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#example').DataTable();
+    })
+</script>
+<?php include 'footer.php'; ?>
+

@@ -18,6 +18,12 @@ if (!empty($_FILES["nama_file"]["tmp_name"]))
 			$sql="INSERT INTO user(username,password,nama,gambar,role) VALUES
             ('$username','$password','$fullname','$gambar','1')";
 			$res=mysqli_query($koneksi, $sql) or die (mysqli_error());
+
+			$idad = mysqli_insert_id($koneksi);
+
+		    $sql2 = "UPDATE user SET kd_cus = '$idcus' WHERE id_user = $idad";
+		    $res2=mysqli_query($koneksi, $sql2) or die (mysqli_error());
+
 			echo "<script>alert('Data Admin Berhasil dimasukan!'); window.location = 'admin.php'</script>";	
 			  
 		} else {

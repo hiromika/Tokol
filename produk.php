@@ -45,8 +45,10 @@
 					<!--	<p>
 						
 						</p> -->
-						<div class="clear"><a href="detailproduk.php?hal=detailbarang&kd=<?php echo $data['kode'];?>" class="btn btn-lg btn-danger">Details</a>  <a href="index.html" class="btn btn-lg btn-success">Buy &raquo;</a></div>
+						<div class="clear"><a href="detailproduk.php?hal=detailbarang&kd=<?php echo $data['kode'];?>" class="btn btn-lg btn-danger">Details</a> 
 
+						<a data-toggle="modal" data-target="#myModal" class="btn btn-lg btn-success">Buy &raquo;</a>
+						</div>
                     </div>
         		</div>
                 <?php   
