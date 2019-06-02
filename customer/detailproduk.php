@@ -26,9 +26,31 @@
             
   
                 <?php                  
-                    $query = mysqli_query($koneksi, "SELECT * FROM produk WHERE kode='$_GET[kd]'");
+                    $query = mysqli_query($koneksi, "
+                        SELECT *
+                        FROM produk a 
+                        LEFT JOIN (
+                                SELECT 
+                                GROUP_CONCAT(z.id_produk) as id_produk, 
+                                GROUP_CONCAT(z.id_stock) as id_stock, 
+                                GROUP_CONCAT(z.warna) as warna, 
+                                GROUP_CONCAT(z.ukuran) as ukuran, 
+                                GROUP_CONCAT(z.stock_warna) as stock_warna  
+                                FROM produk_stock z
+                                LEFT JOIN produk x 
+                                ON z.id_produk = x.kode
+                            )
+                        as b ON a.kode = b.id_produk 
+                        WHERE a.kode='$_GET[kd]'");
                     $data  = mysqli_fetch_array($query);
+
+                    $idp = split(',', $data['id_produk']);
+                    $id_stock = split(',', $data['id_stock']);
+                    $warna = split(',', $data['warna']);
+                    $ukuran = split(',', $data['ukuran']);
+                    $stock_warna = split(',', $data['stock_warna']);
                 ?>
+
         		<!--<div class="span4">-->
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
@@ -71,7 +93,17 @@
                                         <td>:</td>
                                         <td>
                                             <select id="size" name="size" class="form-control" required>
-                                                <option value="All Size">All Size</option>
+                                                <option value=""  disabled="" selected="">~ Select Size ~</option>
+
+                                                <?php 
+                                                    for ($i=0; $i < count($idp) ; $i++) {  ?>
+
+                                                    <option value="<?php echo $idp[$i] ?>"><?php echo $ukuran[$i]  ?></option>
+
+                                                <?php  
+                                                    }         
+                                                ?>
+
                                             </select>
                                         </td>
                                     </tr>
@@ -80,11 +112,15 @@
                                         <td>:</td>
                                         <td>
                                             <select id="color" name="color" class="form-control" required>
-                                                <option value="black">Black</option>
-                                                <option value="dark blue">Dark Blue</option>
-                                                <option value="red">Red</option>
-                                                <option value="grey">Grey</option>
-                                                <option value="white">White</option>
+                                                <option value="" disabled="" selected="">~ Select Color ~</option>
+                                                <?php 
+                                                    for ($i=0; $i < count($idp) ; $i++) {  ?>
+
+                                                    <option value="<?php echo $idp[$i] ?>"><?php echo $warna[$i]  ?></option>
+
+                                                <?php  
+                                                    }         
+                                                ?>
                                             </select>
                                         </td>
                                     </tr>
@@ -103,3 +139,11 @@
 			
 
 	<?php include "footer.php"; ?>
+
+    <script type="text/javascript">
+        
+        $('#color').change(function(event) {
+            
+        });
+
+    </script>

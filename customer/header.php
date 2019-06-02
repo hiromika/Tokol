@@ -87,7 +87,7 @@ if (empty($_SESSION['username'])){
 			              			<li class="dropdown">
 			                			<a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: orange;"><b>Hi, <?php echo $_SESSION['fullname'] ?></b></a>
 			                			<ul class="dropdown-menu">
-			                  				<li><a href="index1.php">Dashboard Customer<b></b></a></li>
+			                  				<li><a href="index1.php?link=po">Dashboard Customer<b></b></a></li>
 			                  				<li><a href="../logout.php">Logout</a></li>
 			                			</ul>
 			              			</li>

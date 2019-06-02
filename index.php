@@ -64,14 +64,13 @@
         		<div class="col-md-4">
           			<div class="icons-box">
                         <div class="title"><h3><?php echo $data['nama']; ?></h3></div>
-                        <img class="img-responsive img" src="admin/<?php echo $data['gambar']; ?>" />
+                        <img style="width: 100%; height: 250px;" class="img-responsive img" src="admin/<?php echo $data['gambar']; ?>" />
 						<div><h3>Rp.<?php echo number_format($data['harga'],2,",",".");?></h3></div>
 					<!--	<p>
 						
 						</p> -->
 						<div class="clear">
-							<a href="detailproduk.php?kd=<?php echo $data['kode'];?>" class="btn btn-lg btn-danger">Details</a> 
-							<a data-toggle="modal" data-target="#myModal" class="btn btn-lg btn-success">Buy &raquo;</a>
+							<a href="detailproduk.php?kd=<?php echo $data['kode'];?>" class="btn btn-lg btn-info">Buy &raquo;</a> 
 						</div>
 					
                     </div>
@@ -84,7 +83,6 @@
 	
 			<hr>
 		
-			
 		</div>
 		<!--end: Container-->
 	
