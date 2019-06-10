@@ -26,11 +26,11 @@
                          <?php
                          if(isset($_GET['hal']) == 'hapus'){
                             $kode = $_GET['kd'];
-                            $cek = mysqli_query($koneksi, "SELECT * FROM po_terima WHERE id='$kode'");
+                            $cek = mysqli_query($koneksi, "SELECT * FROM po WHERE nopo='$kode'");
                             if(mysqli_num_rows($cek) == 0){
                                 echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Data tidak ditemukan.</div>';
                             }else{
-                                $delete = mysqli_query($koneksi, "DELETE FROM po_terima WHERE id='$kode'");
+                                $delete = mysqli_query($koneksi, "DELETE FROM po WHERE nopo='$kode'");
                                 if($delete){
                                     echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Data berhasil dihapus.</div>';
                                 }else{
@@ -56,13 +56,13 @@
                                     <div class="panel-body">
                                         <!-- <div class="table-responsive"> -->
                                             <?php
-                                            $query1="SELECT *,a.nopo as nopo_ ,a.size as size_, a.color as color_ , a.qty as qty_ , a.style as style_   from po_terima a LEFT JOIN po b ON a.nopo = b.nopo  order by a.nopo DESC";
+                                            $query1="SELECT * from po order by nopo DESC";
 
                                             if(isset($_POST['qcari'])){
                                                 $qcari=$_POST['qcari'];
-                                                $query1="SELECT *,a.nopo as nopo_, a.size as size_, a.color as color_ , a.qty as qty_ , a.style as style_  FROM  po_terima a LEFT JOIN po b ON a.nopo = b.nopo  
-                                                where a.nopo  like '%$qcari%' 
-                                                or a.kd_cus like '%$qcari%'";
+                                                $query1="SELECT * FROM  po 
+                                                where nopo  like '%$qcari%' 
+                                                or kd_cus like '%$qcari%'";
                                             }
                                             $tampil=mysqli_query($koneksi, $query1) or die(mysqli_error());
                                             ?>
@@ -74,7 +74,6 @@
                                                         <th><center>Customer </center></th>
                                                         <th><center>Produk </center></th>
                                                         <th><center>Tanggal </center></th>
-                                                        <th><center>Style </center></th>
                                                         <th><center>Color </center></th>
                                                         <th><center>Size </center></th>
                                                         <th><center>Qty </center></th>
@@ -94,10 +93,9 @@
                                                                 <td><a href="detail-customer.php?hal=edit&kd=<?php echo $data['kd_cus'];?>"><span class="glyphicon glyphicon-user"></span> <?php echo $data['kd_cus'];?></td>
                                                                     <td><a href="detail-produk.php?hal=edit&kd=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-tag"></span> <?php echo $data['kode'];?></td>
                                                                         <td><center><?php echo $data['tanggal'];?></center></td>
-                                                                        <td><center><?php echo $data['style_'];?></center></td>
-                                                                        <td><center><?php echo $data['color_'];?></center></td>
-                                                                        <td><center><?php echo $data['size_'];?></center></td>
-                                                                        <td><center><?php echo $data['qty_'];?></center></td>
+                                                                        <td><center><?php echo $data['color'];?></center></td>
+                                                                        <td><center><?php echo $data['size'];?></center></td>
+                                                                        <td><center><?php echo $data['qty'];?></center></td>
                                                                         <td>Rp. <?php echo number_format($data['total'],2,",",".");?></td>
                                                                         <td><center><?php 
                                                                         if ($data['status'] == null) {
@@ -109,16 +107,15 @@
 
                                                                         ?></center></td>
                                                                         <td><center><div id="thanks">
-                                                                            <?php if ($data['status'] ='Proses') {
+                                                                            <?php if ($data['status'] ='Pembayaran Telah di konfirmasi, Menuggu Pengiriman') { ?>
 
-                                                                            }else{ ?>
-
-                                                                                <a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Konfirmasi PO" href="input-po-kirim.php?hal=tambah&nopo=<?php echo $data['nopo_'];?>"><span class="glyphicon glyphicon-check"></span></a> 
+                                                                            <a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Input Resi" href="input-po-kirim.php?hal=tambah&nopo=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-transfer"></span></a> 
 
                                                                             <?php } ?>
 
-                                                                            <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Edit PO Terima" href="edit-po-terima.php?hal=edit&kode=<?php echo $data['nopo_'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
-                                                                            <a onclick="return confirm ('Yakin hapus PO <?php echo $data['nopo_'];?>.?');" class="btn btn-sm btn-danger tooltips" data-placement="bottom" data-toggle="tooltip" title="Hapus PO Terima" href="po-terima.php?hal=hapus&kd=<?php echo $data['nopo_'];?>"><span class="glyphicon glyphicon-trash"></a></center></td></tr></div>
+                                                                            <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Detail PO Terima" href="edit-po-terima.php?hal=edit&kode=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                                                            <a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Edit Konfirmasi" href="edit-konfirmasi.php?hal=edit&kode=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-edit"></span></a>    
+                                                                            <a onclick="return confirm ('Yakin hapus PO <?php echo $data['nopo'];?>.?');" class="btn btn-sm btn-danger tooltips" data-placement="bottom" data-toggle="tooltip" title="Hapus PO Terima" href="po-terima.php?hal=hapus&kd=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-trash"></a></center></td></tr></div>
                                                                                 <?php   
                                                                             } 
                                                                             ?>

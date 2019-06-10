@@ -1,94 +1,5 @@
 <?php include('header.php'); ?>
-
-    <body class="skin-blue">
-        <!-- header logo: style can be found in header.less -->
-        <header class="header">
-            <a href="index.php" class="logo">
-                <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                Administrator
-            </a>
-            <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <div class="navbar-right">
-                    <ul class="nav navbar-nav">
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span><?php echo $_SESSION['fullname']; ?> <i class="caret"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header bg-light-blue">
-                                    <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" />
-                                    <p>
-                                        <?php echo $_SESSION['fullname']; ?>
-                                    
-                                    </p>
-                                </li>
-                                <?php
-$timeout = 10; // Set timeout minutes
-$logout_redirect_url = "../index.php"; // Set logout URL
-
-$timeout = $timeout * 60; // Converts minutes to seconds
-if (isset($_SESSION['start_time'])) {
-    $elapsed_time = time() - $_SESSION['start_time'];
-    if ($elapsed_time >= $timeout) {
-        session_destroy();
-        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
-    }
-}
-$_SESSION['start_time'] = time();
-?>
-
-                                <!-- Menu Body -->
-                                <?php include "menu1.php"; ?>
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="detail-admin.php?hal=edit&kd=<?php echo $_SESSION['user_id'];?>" class="btn btn-default btn-flat">Profil</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="../logout.php" class="btn btn-default btn-flat" onclick="return confirm ('Apakah Anda Akan Keluar.?');"> Keluar </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
-                <!-- sidebar: style can be found in sidebar.less -->
-                <section class="sidebar">
-                    <!-- Sidebar user panel -->
-                    <div class="user-panel">
-                        <div class="pull-left image">
-                            <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" style="border: 2px solid #3C8DBC;" />
-                        </div>
-                        <div class="pull-left info">
-                            <p>Selamat Datang,<br /><?php echo $_SESSION['fullname']; ?></p>
-
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                        </div>
-                    </div>
-                    <?php include "menu.php"; ?>
-                </section>
-                <!-- /.sidebar -->
-            </aside>
-
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
-                <!-- Content Header (Page header) -->
+<div class="content-wrapper">
                 <section class="content-header">
                     <h1>
                         Purchase Order
@@ -104,76 +15,15 @@ $_SESSION['start_time'] = time();
                 <section class="content">
 <?php
             $kd = $_GET['nopo'];
-			$sql = mysqli_query($koneksi, "SELECT * FROM po_terima WHERE nopo='$kd'");
+			$sql = mysqli_query($koneksi, "SELECT * FROM po WHERE nopo='$kd'");
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: po-terima.php");
 			}else{
 				$row = mysqli_fetch_assoc($sql);
 			}
-/**if(isset($_POST['input'])){
-$namafolder="gambar_customer/"; //tempat menyimpan file
 
-if (!empty($_FILES["nama_file"]["tmp_name"]))
-{
-	$jenis_gambar=$_FILES['nama_file']['type'];
-        $nama     = $_POST['nama'];
-		$alamat   = $_POST['alamat'];
-		$no_telp  = $_POST['no_telp'];
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        
-        $cekno= mysqli_query($koneksi, "SELECT * FROM customer ORDER BY kd_cus DESC");
-        
-        
-        $data1=mysqli_num_rows($cekno);
-        $cekQ1=$data1;
-        //$data=mysqli_fetch_array($ceknomor);
-        //$cekQ=$data['f_kodepart'];
-        #menghilangkan huruf
-        //$awalQ=substr($cekQ,0-6);
-        #ketemu angka awal(angka sebelumnya) + dengan 1
-        $next1=$cekQ1+1;
-
-        #menhitung jumlah karakter
-        $kode1=strlen($next1);
-        
-        if(!$cekQ1)
-        { $no1='000001'; }
-        elseif($kode1==1)
-        { $no1='00000'; }
-        elseif($kode1==2)
-        { $n1o='0000'; }
-        elseif($kode1==3)
-        { $no1='000'; }
-        elseif($kode1==4)
-        { $no1='00'; }
-        elseif($kode1==5)
-        { $no1='0'; }
-        elseif($kode1=6)
-        { $no=''; }
-
-        // masukkan dalam tabel penjualan
-        $kode=$no1.$next1;
-		
-	if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png")
-	{			
-		if (move_uploaded_file($_FILES['nama_file']['tmp_name'], $gambar)) {
-		$gambar = $namafolder . basename($_FILES['nama_file']['name']);		
-			$sql="INSERT INTO customer(kd_cus,nama,alamat,no_telp,username,password,gambar) VALUES
-            ('$kode','$nama','$alamat','$no_telp','$username','$password','$gambar')";
-			$res=mysqli_query($koneksi, $sql) or die (mysqli_error());
-			//echo "Gambar berhasil dikirim ke direktori".$gambar;
-            echo "<script>alert('Data Customer berhasil dimasukan!'); window.location = 'customer.php'</script>";	   
-		} else {
-		   echo "<p>Gambar gagal dikirim</p>";
-		}
-   } else {
-		echo "Jenis gambar yang anda kirim salah. Harus .jpg .gif .png";
-   }
-} else {
-	echo "Anda belum memilih gambar";
-}
-}**/
+            if(isset($_POST['input'])){
+            }
 
 
 			?>
@@ -191,29 +41,14 @@ if (!empty($_FILES["nama_file"]["tmp_name"]))
                       <form class="form-horizontal style-form" action="insert-po-kirim.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">No Po</label>
-                              <div class="col-sm-8">
+                              <div class="col-sm-3">
                                   <input name="nopo" type="text" value="<?php echo $row['nopo']; ?>" id="nopo" class="form-control" autocomplete="off" readonly="readonly"/>
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Style</label>
+                              <label class="col-sm-2 col-sm-2 control-label">No Surat Jalan</label>
                               <div class="col-sm-3">
-                            <input name="style" type="text" id="style" value="<?php echo $row['style']; ?>" class="form-control" autocomplete="off" autocomplete="off" readonly="readonly" />
-                              
-                            </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Color</label>
-                              <div class="col-sm-3">
-                            <input name="color" type="text" id="color" value="<?php echo $row['color']; ?>" class="form-control" autocomplete="off" autocomplete="off" readonly="readonly" />
-                              
-                            </div>
-                          </div>
-                          <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Size</label>
-                              <div class="col-sm-3">
-                            <input name="size" type="text" id="size" value="<?php echo $row['size']; ?>" class="form-control" autocomplete="off" autocomplete="off" readonly="readonly" />
-                              
+                                <input name="surat_jalan" type="text" id="surat_jalan" value="" class="form-control" autocomplete="off" />
                             </div>
                           </div>
                           <div class="form-group">

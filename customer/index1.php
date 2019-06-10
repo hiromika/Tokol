@@ -80,7 +80,7 @@ session_start();
     <body class="hold-transition skin-blue-light sidebar-mini fixed">
         <div class="wrapper">
             <header class="main-header">
-                <a href="#" class="logo">
+                <a href="./index.php" class="logo">
                     <span class="logo-mini" ><img src="../assets/source/img/" style="border: none;" width="32" alt="Logo" /></span>
                     <span class="logo-lg">Click Clothing<font size="1pt"></font></span>
                 </a>
@@ -122,20 +122,20 @@ session_start();
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
-                    <li class="header">MAIN NAVIGATION ADMIN</li>
+                    <li class="header">MAIN NAVIGATION</li>
                     <li>
                         <a href="./index1.php?link=po">
-                            <i class="glyphicon glyphicon-dashboard"></i> <span>Data Purchase Order</span>
+                            <i class="glyphicon glyphicon-shopping-cart"></i> <span>Data Purchase Order</span>
                         </a>
                     </li> 
                     <li>
                         <a href="./index1.php?link=cs">
-                            <i class="glyphicon glyphicon-dashboard"></i> <span>Data Custom</span>
+                            <i class="glyphicon glyphicon-blackboard"></i> <span>Data Custom</span>
                         </a>
                     </li> 
                     <li>
                         <a href="./index1.php?link=p&hal=edit&kd_cus=<?php echo $_SESSION['user_id'];?>">
-                            <i class="glyphicon glyphicon-dashboard"></i> <span>Profile</span>
+                            <i class="glyphicon glyphicon-user"></i> <span>Profile</span>
                         </a>
                     </li>
                 </ul>
@@ -156,6 +156,15 @@ session_start();
                         break; 
                     case 'p':
                         include 'detail-customer.php';
+                        break; 
+                    case 'st_po':
+                        include 'status-po.php';
+                        break;
+                    case 'detail_bayar':
+                        include 'detail-konfirmasi.php';
+                        break; 
+                    case 'bayar_edit':
+                        include 'edit-konfirmasi.php';
                         break;
                     default:
                         include 'data_po.php';

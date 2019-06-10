@@ -54,7 +54,7 @@
                             </div><!-- ./col -->
                             <div class="col-lg-3 col-xs-6">
                                 <!-- small box -->
-                                <?php $tampil1=mysqli_query($koneksi, "SELECT * from po_terima order by nopo desc");
+                                <?php $tampil1=mysqli_query($koneksi, "SELECT * from po order by nopo desc");
                                 $dept=mysqli_num_rows($tampil1);
                                 ?>
                                 <div class="small-box bg-green">

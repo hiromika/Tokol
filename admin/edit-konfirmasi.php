@@ -1,94 +1,6 @@
 <?php include('header.php'); ?>
+<div class="content-wrapper">
 
-    <body class="skin-blue">
-        <!-- header logo: style can be found in header.less -->
-        <header class="header">
-            <a href="index.php" class="logo">
-                <!-- Add the class icon to your logo image or logo icon to add the margining -->
-                Administrator
-            </a>
-            <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top" role="navigation">
-                <!-- Sidebar toggle button-->
-                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <div class="navbar-right">
-                    <ul class="nav navbar-nav">
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="glyphicon glyphicon-user"></i>
-                                <span><?php echo $_SESSION['fullname']; ?> <i class="caret"></i></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header bg-light-blue">
-                                    <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" />
-                                    <p>
-                                        <?php echo $_SESSION['fullname']; ?>
-                                    
-                                    </p>
-                                </li>
-                                <?php
-$timeout = 10; // Set timeout minutes
-$logout_redirect_url = "../index.php"; // Set logout URL
-
-$timeout = $timeout * 60; // Converts minutes to seconds
-if (isset($_SESSION['start_time'])) {
-    $elapsed_time = time() - $_SESSION['start_time'];
-    if ($elapsed_time >= $timeout) {
-        session_destroy();
-        echo "<script>alert('Session Anda Telah Habis!'); window.location = '$logout_redirect_url'</script>";
-    }
-}
-$_SESSION['start_time'] = time();
-?>
-
-                                <!-- Menu Body -->
-                                <?php include "menu1.php"; ?>
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="detail-admin.php?hal=edit&kd=<?php echo $_SESSION['user_id'];?>" class="btn btn-default btn-flat">Profil</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="../logout.php" class="btn btn-default btn-flat" onclick="return confirm ('Apakah Anda Akan Keluar.?');"> Keluar </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <div class="wrapper row-offcanvas row-offcanvas-left">
-            <!-- Left side column. contains the logo and sidebar -->
-            <aside class="left-side sidebar-offcanvas">
-                <!-- sidebar: style can be found in sidebar.less -->
-                <section class="sidebar">
-                    <!-- Sidebar user panel -->
-                    <div class="user-panel">
-                        <div class="pull-left image">
-                            <img src="<?php echo $_SESSION['gambar']; ?>" class="img-circle" alt="User Image" style="border: 2px solid #3C8DBC;" />
-                        </div>
-                        <div class="pull-left info">
-                            <p>Selamat Datang,<br /><?php echo $_SESSION['fullname']; ?></p>
-
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                        </div>
-                    </div>
-                    <?php include "menu.php"; ?>
-                </section>
-                <!-- /.sidebar -->
-            </aside>
-
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
-                <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
                         Konfirmasi
@@ -104,7 +16,7 @@ $_SESSION['start_time'] = time();
                 <section class="content">
                 <?php
             $kd = $_GET['kode'];
-			$sql = mysqli_query($koneksi, "SELECT * FROM konfirmasi WHERE id_kon='$kd'");
+			$sql = mysqli_query($koneksi, "SELECT * FROM konfirmasi WHERE nopo='$kd'");
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: konfirmasi.php");
 			}else{
@@ -112,7 +24,7 @@ $_SESSION['start_time'] = time();
 			}
 			if(isset($_POST['update'])){
 				$id_kon	        = $_POST['id_kon'];
-				$nopo	        = $_POST['nopo'];
+				$nopo	          = $_POST['nopo'];
 				$kd_cus	        = $_POST['kd_cus'];
 				$bayar_via      = $_POST['bayar_via'];
 				$tanggal        = $_POST['tanggal'];
@@ -120,7 +32,12 @@ $_SESSION['start_time'] = time();
                 //$bukti_transfer = $_POST['bukti_transfer'];
                 $status         = $_POST['status'];
 				
-				$update = mysqli_query($koneksi, "UPDATE konfirmasi SET status='$status' WHERE id_kon='$id_kon'") or die(mysqli_error());
+        $update = mysqli_query($koneksi, "UPDATE konfirmasi SET status='$status' WHERE id_kon='$id_kon'") or die(mysqli_error());
+        if ($status == "Bayar") {
+				    $update2 = mysqli_query($koneksi, "UPDATE po SET status='Pembayaran Telah di konfirmasi, Menuggu Pengiriman' WHERE nopo='$nopo'") or die(mysqli_error());
+        }else{
+          $update2 = mysqli_query($koneksi, "UPDATE po SET status='Pembayaran di Tolak Oleh Admin' WHERE nopo='$nopo'") or die(mysqli_error());
+        }
 				if($update){
 					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Data berhasil disimpan.</div>';
 				}else{
@@ -146,7 +63,7 @@ $_SESSION['start_time'] = time();
                       <form class="form-horizontal style-form" action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">ID Konfirmasi</label>
-                              <div class="col-sm-8">
+                              <div class="col-sm-3">
                                   <input name="id_kon" type="text" id="id_kon" value="<?php echo $row['id_kon']; ?>" class="form-control" autocomplete="off" readonly="readonly"/>
                               </div>
                           </div>
@@ -204,15 +121,17 @@ $_SESSION['start_time'] = time();
                               
                             </div>
                             <label class="col-sm-2 col-sm-2 control-label">Status Sebelumnya : </label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3" style="margin-top: 7px;">
                             <?php
                             if($row['status'] == 'Bayar'){
-								echo '<span class="label label-success">Sudah di Bayar</span>';
-							}
+              								echo '<span class="label label-success">Sudah di Bayar</span>';
+              							}
                             else if ($row['status'] == 'Belum' ){
-								echo '<span class="label label-danger">Belum di Bayar</span>';
-							}
-                    ?>
+              								echo '<span class="label label-danger">Belum di Bayar</span>';
+              							}else{
+                              echo '<span class="label label-primary">'.$row['status'].'</span>';
+                            }
+                            ?>
                             
                             </span>
                             </div>
@@ -234,6 +153,5 @@ $_SESSION['start_time'] = time();
                 </section><!-- /.content -->
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
-
 
 <?php include('footer.php'); ?>

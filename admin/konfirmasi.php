@@ -99,6 +99,8 @@
                                                                 }
                                                                 else if ($data['status'] == 'Belum' ){
                                                                     echo '<span class="label label-danger">Belum di Bayar</span>';
+                                                                }else{
+                                                                    echo $data['status'];
                                                                 }
                                                                 ?>
 
