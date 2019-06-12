@@ -26,8 +26,11 @@
                                         $data  = mysqli_fetch_array($query);
                                         ?>
                                                     <!-- </div> -->
-                                                    <div class="panel-body">
-                                          <table id="example" class="table table-hover table-bordered">
+                                        <div class="panel-body">
+                                        <div>
+                                            <a style="margin-bottom: 10px;" href="index1.php?link=edit_cus&kd_cus=<?php echo $_GET['kd_cus'] ?>" title="" class="btn btn-info pull-right">Edit Profile</a>
+                                        </div>
+                                        <table id="example" class="table table-hover table-bordered">
                                         <tr>
                                         <td>Kode</td>
                                         <td><?php echo $data['kd_cus']; ?></td>
@@ -52,9 +55,6 @@
                                         <td><?php echo $data['username']; ?></td>
                                         </tr>
                                         <tr>
-                                        <td>Password</td>
-                                        <td><?php echo $data['password']; ?></td>
-                                        </tr>
                                     </table>
 
                                     <!--PAGE CONTENT ENDS-->

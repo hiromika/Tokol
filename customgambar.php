@@ -65,7 +65,7 @@ if (!empty($_FILES["nama_file"]["tmp_name"]))
 
       $res=mysqli_query($koneksi, $sql and $query) or die (mysqli_error());
 //echo "Gambar berhasil dikirim ke direktori".$gambar;
-      echo "<script>alert('Data Produk berhasil dimasukan!'); window.location = 'produk.php'</script>";    
+      echo "<script>alert('Data Produk berhasil dimasukan!'); window.location = 'index1.php?link=cs'</script>";    
     } else {
       echo "<p>Gambar gagal dikirim</p>";
     }

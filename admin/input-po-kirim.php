@@ -22,10 +22,6 @@
 				$row = mysqli_fetch_assoc($sql);
 			}
 
-            if(isset($_POST['input'])){
-            }
-
-
 			?>
            <!-- /.row -->
                     <br />
@@ -48,7 +44,7 @@
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">No Surat Jalan</label>
                               <div class="col-sm-3">
-                                <input name="surat_jalan" type="text" id="surat_jalan" value="" class="form-control" autocomplete="off" />
+                                <input name="surat_jalan" type="text" id="surat_jalan" value="<?php echo $row['no_surat_jalan'] ?>" class="form-control" autocomplete="off" />
                             </div>
                           </div>
                           <div class="form-group">

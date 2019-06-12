@@ -3,10 +3,10 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-        Dashboard
+        Detail PO
         </h1>
         <ol class="breadcrumb">
-        dashboard
+        Detail PO
         </ol>
     </section>
     <br />
@@ -15,7 +15,7 @@
             <div class="col-xs-12">
               <div class="box box-danger">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Dashboard</h3>
+                        <h3 class="box-title">Detail PO</h3>
                         <!-- <a href="" title="Add Divisi" id="divisi_add" data-toggle="modal" class="btn btn-info pull-right">Add Divisi</a> -->
                     </div>
                     <!-- /.box-header -->
@@ -115,7 +115,23 @@
                                         <div class="col-sm-3">
                                           <input type="text" class="form-control" id="total" name="total" value="<?php echo $row['total']; ?>" readonly="readonly" />
                                         </div>
-                                      </div>
+                                      </div> 
+                                      <?php
+                                        if ($row['no_surat_jalan'] > 0) { ?>
+                                        <div class="form-group">
+                                          <label class="col-sm-2 col-sm-2 control-label">Tanggal Kirim</label>
+                                          <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="tgl_kirim" name="tgl_kirim" value="<?php echo $row['tgl_kirim']; ?>" readonly="readonly" />
+                                          </div>
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="col-sm-2 col-sm-2 control-label">No Surat Jalan</label>
+                                          <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="no_surat_jalan" name="no_surat_jalan" value="<?php echo $row['no_surat_jalan']; ?>" readonly="readonly" />
+                                          </div>
+                                        </div>
+                                      <?php   }
+                                      ?>
                                <!--        <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label"></label>
                                         <div class="col-sm-10">

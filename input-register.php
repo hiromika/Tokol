@@ -10,7 +10,7 @@ if (!empty($_FILES["nama_file"]["tmp_name"]))
 		$alamat     = $_POST['alamat'];
         $no_telp    = $_POST['no_telp'];
         $username   = $_POST['username'];
-        $password   = $_POST['password'];
+        $password   = sha1($_POST['password']);
         $kd_cus     = date("YmdHis");
 		
 	if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png")

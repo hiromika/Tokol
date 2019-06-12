@@ -3,10 +3,10 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-        Data PO
+        Daftar Purchase Order
         </h1>
         <ol class="breadcrumb">
-        Data PO
+        Daftar Purchase Order
         </ol>
     </section>
     <br />
@@ -15,7 +15,7 @@
             <div class="col-xs-12">
               <div class="box box-danger">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Data PO</h3>
+                        <h3 class="box-title">Daftar Purchase Order</h3>
                         <!-- <a href="" title="Add Divisi" id="divisi_add" data-toggle="modal" class="btn btn-info pull-right">Add Divisi</a> -->
                     </div>
                     <!-- /.box-header -->
@@ -97,24 +97,27 @@
                                                                         <td><center><?php echo $data['size'];?></center></td>
                                                                         <td><center><?php echo $data['qty'];?></center></td>
                                                                         <td>Rp. <?php echo number_format($data['total'],2,",",".");?></td>
-                                                                        <td><center><?php 
+                                                                        <td><center>
+                                                                            <span class="label label-primary"><?php 
                                                                         if ($data['status'] == null) {
                                                                             echo 'Menunggu Konfirmasi';
                                                                         }else{
                                                                             echo $data['status'];
-
                                                                         }
-
-                                                                        ?></center></td>
+                                                                        ?>
+                                                                        </span>
+                                                                        </center></td>
                                                                         <td><center><div id="thanks">
-                                                                            <?php if ($data['status'] ='Pembayaran Telah di konfirmasi, Menuggu Pengiriman') { ?>
+                                                                            <?php if ($data['status'] == 'Pembayaran Telah di konfirmasi, Menuggu Pengiriman') { ?>
 
                                                                             <a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Input Resi" href="input-po-kirim.php?hal=tambah&nopo=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-transfer"></span></a> 
 
                                                                             <?php } ?>
 
                                                                             <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Detail PO Terima" href="edit-po-terima.php?hal=edit&kode=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                                                            <?php if ($data['status'] == 'Menuggu Konfirmasi Oleh admin') { ?>
                                                                             <a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Edit Konfirmasi" href="edit-konfirmasi.php?hal=edit&kode=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-edit"></span></a>    
+                                                                            <?php } ?>
                                                                             <a onclick="return confirm ('Yakin hapus PO <?php echo $data['nopo'];?>.?');" class="btn btn-sm btn-danger tooltips" data-placement="bottom" data-toggle="tooltip" title="Hapus PO Terima" href="po-terima.php?hal=hapus&kd=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-trash"></a></center></td></tr></div>
                                                                                 <?php   
                                                                             } 

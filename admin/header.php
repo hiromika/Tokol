@@ -159,7 +159,7 @@ session_start();
                         <ul class="treeview-menu">
                             <li><a href="po-terima.php"><i class="fa fa-angle-double-right"></i> Data PO Terima</a></li>
                             <li><a href="konfirmasi.php"><i class="fa fa-angle-double-right"></i> Konfirmasi Pembayaran</a></li>
-                            <li><a href="po.php"><i class="fa fa-angle-double-right"></i> Data PO Kirim</a></li>
+                            <!-- <li><a href="po.php"><i class="fa fa-angle-double-right"></i> Data PO Kirim</a></li> -->
                         </ul>
                     </li>
 

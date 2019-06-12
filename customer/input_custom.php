@@ -25,7 +25,7 @@ if (empty($_SESSION['username'])){
 	$query = mysqli_query ($koneksi, "insert into custom (  kd_cus,nama, size, color, model, gambar) VALUES ('$_SESSION[user_id]','$nama','$size','$color', '$model',  '$filename')")
 			or die (mysql_error());
 	if ($query) {
-	header('location:index1.php');
+	header('location:index1.php?link=cs');
 }
 
 

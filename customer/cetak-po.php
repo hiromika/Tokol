@@ -9,11 +9,10 @@ require('../assets/fpdf17/fpdf.php');
 $kodesaya = $_GET['kd'];
 //Select the Products you want to show in your PDF file
 
-$result=mysqli_query($koneksi, "SELECT po_terima.*, produk.nama, produk.harga,user.nama as name, user.no_telp, po.status FROM po_terima
-				LEFT JOIN produk ON po_terima.kode = produk.kode
-				LEFT JOIN user ON po_terima.kd_cus = user.id_user
-                LEFT JOIN po ON po_terima.nopo = po.nopo
-				WHERE po_terima.nopo ='$kodesaya'");
+$result=mysqli_query($koneksi, "SELECT po.*, produk.nama, produk.harga,user.nama as name, user.no_telp, po.status FROM po
+				LEFT JOIN produk ON po.kode = produk.kode
+				LEFT JOIN user ON po.kd_cus = user.id_user
+				WHERE po.nopo ='$kodesaya'");
 //Initialize the 3 columns and the total
 $column_date = "";
 $column_time = "";
@@ -30,7 +29,6 @@ while($row = mysqli_fetch_array($result))
     $kd_cus  = $row["kd_cus"];
     $kode    = $row["kode"];
     $tanggal = $row["tanggal"];
-    $style   = $row["style"];
 	$color   = $row["color"];
     $size    = $row["size"];
     $qty     = $row["qty"];
@@ -42,7 +40,6 @@ while($row = mysqli_fetch_array($result))
     $status  = $row["status"];
 
 	$column_date = $column_date.$nama."\n";
-	$column_time = $column_time.$style."\n";
 	$column_standmeter = $column_standmeter.$color."\n";
 	$column_factor = $column_factor.$size."\n";
 	$column_total = $column_total.$qty."\n";
@@ -61,7 +58,7 @@ $pdf->Cell(80);
 $pdf->Cell(30,10,'INVOICE PURCHASE ORDER',0,0,'C');
 $pdf->Ln();
 $pdf->Cell(80);
-$pdf->Cell(30,10,'Eat Them T-Shirt Sablon DTG',0,0,'C');
+$pdf->Cell(30,10,'Click Clothing',0,0,'C');
 $pdf->Ln();
 
 //Fields Name position
@@ -148,11 +145,11 @@ $pdf->SetFillColor(110,180,230);
 $pdf->SetFont('Arial','B',10);
 $pdf->SetY($Y_Fields_Name_position);
 $pdf->SetX(5);
-$pdf->Cell(40,8,'Produk',1,0,'C',1);
-$pdf->SetX(45);
-$pdf->Cell(20,8,'Style 1',1,0,'C',1);
+$pdf->Cell(60,8,'Produk',1,0,'C',1);
+// $pdf->SetX(45);
+// $pdf->Cell(20,8,'Style 1',1,0,'C',1);
 $pdf->SetX(65);
-$pdf->Cell(20,8,'Color 2',1,0,'C',1);
+$pdf->Cell(20,8,'Color',1,0,'C',1);
 $pdf->SetX(85);
 $pdf->Cell(20,8,'Size',1,0,'C',1);
 $pdf->SetX(105);
@@ -171,11 +168,11 @@ $pdf->SetFont('Arial','',10);
 
 $pdf->SetY($Y_Table_Position);
 $pdf->SetX(5);
-$pdf->MultiCell(40,6,$column_date,1,'C');
+$pdf->MultiCell(60,6,$column_date,1,'C');
 
-$pdf->SetY($Y_Table_Position);
-$pdf->SetX(45);
-$pdf->MultiCell(20,6,$column_time,1,'C');
+// $pdf->SetY($Y_Table_Position);
+// $pdf->SetX(45);
+// $pdf->MultiCell(20,6,$column_time,1,'C');
 
 $pdf->SetY($Y_Table_Position);
 $pdf->SetX(65);
@@ -203,7 +200,7 @@ $pdf->SetFont('Arial','B',12);
 $pdf->SetX(5);
 $pdf->Cell(40,8,'Total Tagihan',1,0,'C',1);
 $pdf->SetX(45);
-$pdf->Cell(160,8,$total.'',1,0,'R',1);
+$pdf->Cell(160,8,'Rp.'.$total.'',1,0,'R',1);
 $pdf->Ln();
 $pdf->SetFillColor(110,180,230);
 $pdf->Ln(10);

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 20, 2019 at 08:42 PM
+-- Generation Time: Jun 12, 2019 at 05:44 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -52,6 +52,7 @@ CREATE TABLE `cart` (
   `id_cart` varchar(20) NOT NULL,
   `tanggal` datetime NOT NULL,
   `kode` varchar(11) NOT NULL,
+  `id_stock` int(11) NOT NULL,
   `nama` varchar(11) NOT NULL,
   `size` varchar(11) NOT NULL,
   `color` varchar(10) NOT NULL,
@@ -85,7 +86,7 @@ CREATE TABLE `custom` (
 --
 
 INSERT INTO `custom` (`kode`, `tanggal`, `kd_cus`, `nama`, `size`, `color`, `model`, `gambar`, `harga`, `status`) VALUES
-(2, '', '3', 'asd', 'S', 'black', 'short', 'about.png', '100000', 'Menuggu Konfirmasi	');
+(3, '', '3', 'bambang', 'S', 'dark blue', 'long', '1554969925_tmp_logo_lacika_sakti.png', '', 'Menuggu Konfirmasi');
 
 -- --------------------------------------------------------
 
@@ -101,7 +102,7 @@ CREATE TABLE `konfirmasi` (
   `tanggal` datetime NOT NULL,
   `jumlah` int(10) NOT NULL,
   `bukti_transfer` text NOT NULL,
-  `status` enum('Bayar','Belum') NOT NULL
+  `status` varchar(100) NOT NULL DEFAULT 'Belum'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -109,7 +110,9 @@ CREATE TABLE `konfirmasi` (
 --
 
 INSERT INTO `konfirmasi` (`id_kon`, `nopo`, `kd_cus`, `bayar_via`, `tanggal`, `jumlah`, `bukti_transfer`, `status`) VALUES
-(1, '1', '3', '0', '2019-01-20 12:18:25', 6790000, '0', 'Belum');
+(6, '6', '3', 'Mandiri', '2019-06-09 03:14:18', 213123, '../admin/bukti_transfer/43-431732_clipart-royalty-free-stock-six-rainbow-circular-arrows.png', 'Bayar'),
+(7, '7', '3', 'BNI', '2019-06-12 03:40:30', 213123, '../admin/bukti_transfer/about.png', 'Bayar'),
+(8, '8', '3', 'BNI', '2019-06-12 18:53:08', 213123, '../admin/bukti_transfer/a3MqEXEn_700w_0.jpg', 'Bayar');
 
 -- --------------------------------------------------------
 
@@ -118,46 +121,29 @@ INSERT INTO `konfirmasi` (`id_kon`, `nopo`, `kd_cus`, `bayar_via`, `tanggal`, `j
 --
 
 CREATE TABLE `po` (
-  `nopo` varchar(20) NOT NULL,
-  `style` varchar(10) NOT NULL,
-  `color` varchar(20) NOT NULL,
+  `nopo` int(11) NOT NULL,
+  `kd_cus` varchar(20) NOT NULL,
+  `kode` int(11) NOT NULL,
+  `id_stock` int(11) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `color` varchar(10) NOT NULL,
   `size` varchar(4) NOT NULL,
-  `tanggalkirim` date NOT NULL,
-  `tanggalexport` date NOT NULL,
-  `status` text NOT NULL
+  `qty` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `tgl_kirim` datetime NOT NULL,
+  `no_surat_jalan` int(20) NOT NULL,
+  `tgl_terima` datetime NOT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'Menuggu Pembayaran'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `po`
 --
 
-INSERT INTO `po` (`nopo`, `style`, `color`, `size`, `tanggalkirim`, `tanggalexport`, `status`) VALUES
-('1', 'asd', 'White', '-- P', '2019-01-21', '2019-01-21', 'Selesai');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `po_terima`
---
-
-CREATE TABLE `po_terima` (
-  `nopo` int(10) NOT NULL,
-  `kd_cus` varchar(20) NOT NULL,
-  `kode` int(4) NOT NULL,
-  `tanggal` datetime NOT NULL,
-  `style` varchar(20) NOT NULL,
-  `color` varchar(10) NOT NULL,
-  `size` varchar(4) NOT NULL,
-  `qty` int(8) NOT NULL,
-  `total` int(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `po_terima`
---
-
-INSERT INTO `po_terima` (`nopo`, `kd_cus`, `kode`, `tanggal`, `style`, `color`, `size`, `qty`, `total`) VALUES
-(1, '3', 14, '2019-01-20 12:16:51', '', 'White', 'All ', 1, 6790000);
+INSERT INTO `po` (`nopo`, `kd_cus`, `kode`, `id_stock`, `tanggal`, `color`, `size`, `qty`, `total`, `tgl_kirim`, `no_surat_jalan`, `tgl_terima`, `status`) VALUES
+(6, '3', 30, 20, '2019-06-08 20:11:00', 'hitam', 'S', 1, 213123, '2019-06-11 04:08:38', 12323, '0000-00-00 00:00:00', 'Barang Diterima'),
+(7, '3', 30, 17, '2019-06-11 20:40:08', 'asadas', 'L', 1, 213123, '2019-06-12 04:12:27', 2222, '0000-00-00 00:00:00', 'Barang Diterima'),
+(8, '3', 30, 17, '2019-06-12 11:52:55', 'asadas', 'L', 1, 213123, '2019-06-12 19:23:50', 22222, '0000-00-00 00:00:00', 'Barang Diterima');
 
 -- --------------------------------------------------------
 
@@ -169,8 +155,6 @@ CREATE TABLE `produk` (
   `kode` int(10) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `jenis` varchar(10) NOT NULL,
-  `size` varchar(20) NOT NULL,
-  `color` varchar(20) NOT NULL,
   `harga` int(10) NOT NULL,
   `keterangan` varchar(100) NOT NULL,
   `stok` int(3) NOT NULL,
@@ -181,38 +165,38 @@ CREATE TABLE `produk` (
 -- Dumping data for table `produk`
 --
 
-INSERT INTO `produk` (`kode`, `nama`, `jenis`, `size`, `color`, `harga`, `keterangan`, `stok`, `gambar`) VALUES
-(5, 'Cool', 'T-Shirt', 'All Size', 'Black', 95000, 'Cotton Combed 30s, Black Color, DTG Printing', 4, 'gambar_produk/baju8.jpg'),
-(6, 'Devil Wings', 'T-Shirt', 'All Size', 'Black', 105000, 'Cotton Combed 30s, Black Color, DTG Printing', 5, 'gambar_produk/baju9.jpg'),
-(7, 'Scream', 'T-Shirt', 'All Size', 'Red', 100000, 'Cotton Combed 30s, White Color, DTG Printing', 4, 'gambar_produk/baju10.jpg'),
-(8, 'Black Dragon', 'T-Shirt', 'All Size', 'Black', 110000, 'Cotton Combed 30s, Red Color, DTG Printing', 1, 'gambar_produk/baju11.jpg'),
-(9, 'Galaxy', 'T-Shirt', 'All Size', 'Gray', 120000, 'Cotton Combed 30s, Black Color, DTG Printing', 8, 'gambar_produk/baju12.jpg'),
-(10, 'Japan', 'T-Shirt', 'All Size', 'Black', 110000, 'Cotton Combed 30s, Black Color, DTG Printing', 8, 'gambar_produk/baju14.JPG'),
-(11, 'Origami', 'T-Shirt', 'All Size', 'Black', 100000, 'Cotton Combed 30s, White Color, DTG Printing', 10, 'gambar_produk/baju15.JPG'),
-(12, 'Owl Rectangle', 'T-Shirt', 'All Size', 'White', 120000, 'Cotton Combed 30s, White Color, DTG Printing', 6, 'gambar_produk/baju16.JPG'),
-(13, 'polo', 'Kaos Polo', 'All Size', 'Black', 90000, 'kaos polo', 7, 'gambar_produk/smile_skull_lady.jpg'),
-(14, 'kaos polo', 'Kaos Polo', 'All Size', 'White', 6790000, 'mkjkk', 12, 'gambar_produk/baju10.jpg'),
-(15, 'kemeja', 'Kemeja', 'All Size', 'Red', 120000, 'bnn', 4, 'gambar_produk/baju11.jpg'),
-(16, 'sweateracc', 'Sweater', 'All Size', 'Red', 159999, 'hjhjl.k', 9, 'gambar_produk/baju12.jpg');
+INSERT INTO `produk` (`kode`, `nama`, `jenis`, `harga`, `keterangan`, `stok`, `gambar`) VALUES
+(5, 'Cool', 'T-Shirt', 95000, 'Cotton Combed 30s, Black Color, DTG Printing', 4, 'gambar_produk/baju8.jpg'),
+(6, 'Devil Wings', 'T-Shirt', 105000, 'Cotton Combed 30s, Black Color, DTG Printing', 5, 'gambar_produk/baju9.jpg'),
+(7, 'Scream', 'T-Shirt', 100000, 'Cotton Combed 30s, White Color, DTG Printing', 4, 'gambar_produk/baju10.jpg'),
+(8, 'Black Dragon', 'T-Shirt', 110000, 'Cotton Combed 30s, Red Color, DTG Printing', 1, 'gambar_produk/baju11.jpg'),
+(9, 'Galaxy', 'T-Shirt', 120000, 'Cotton Combed 30s, Black Color, DTG Printing', 8, 'gambar_produk/baju12.jpg'),
+(10, 'Japan', 'T-Shirt', 110000, 'Cotton Combed 30s, Black Color, DTG Printing', 6, 'gambar_produk/baju14.JPG'),
+(30, '2312dasdas', 'Sweater', 213123, 'asdasd', 12, 'gambar_produk/acinstr.png');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tmp_po_terima`
+-- Table structure for table `produk_stock`
 --
 
-CREATE TABLE `tmp_po_terima` (
-  `id` int(10) NOT NULL,
-  `nopo` varchar(10) NOT NULL,
-  `kd_cus` varchar(10) NOT NULL,
-  `kode` int(4) NOT NULL,
-  `tanggal` date NOT NULL,
-  `style` varchar(20) NOT NULL,
-  `color` varchar(10) NOT NULL,
-  `size` varchar(4) NOT NULL,
-  `qty` int(8) NOT NULL,
-  `total` int(8) NOT NULL
+CREATE TABLE `produk_stock` (
+  `id_stock` int(11) NOT NULL,
+  `id_produk` int(11) NOT NULL,
+  `warna` varchar(20) NOT NULL,
+  `ukuran` varchar(10) NOT NULL,
+  `stock_warna` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `produk_stock`
+--
+
+INSERT INTO `produk_stock` (`id_stock`, `id_produk`, `warna`, `ukuran`, `stock_warna`) VALUES
+(17, 30, 'asadas', 'L', 19),
+(18, 30, 'asdasdsd', 'S', 2),
+(19, 30, 'hitam', 'L', 2),
+(20, 30, 'hitam', 'S', 2);
 
 -- --------------------------------------------------------
 
@@ -237,9 +221,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `kd_cus`, `nama`, `alamat`, `no_telp`, `username`, `password`, `role`, `gambar`) VALUES
-(1, '', 'Admin', 'Bekasi', '0218787333', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'gambar_admin/about.png'),
-(3, '3', 'user', 'asd', '213', 'user', '12dea96fec20593566ab75692c9949596833adc9', 2, 'gambar_customer/about.png'),
-(4, '', 'admin23', '', '', 'admin2', '315f166c5aca63a157f7d41007675cb44a948b33', 1, 'gambar_admin/about.png');
+(1, '1', 'admin', 'admin', '123123', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, ''),
+(3, '3', 'user', 'asd', '2132', 'user', '12dea96fec20593566ab75692c9949596833adc9', 2, '../admin/gambar_customer/Android_Studio_icon.svg.png'),
+(5, '5', 'asd', 'asd', '213', 'asd', 'f10e2821bbbea527ea02200352313bc059445190', 2, 'gambar_customer/acinstr.png');
 
 --
 -- Indexes for dumped tables
@@ -276,22 +260,16 @@ ALTER TABLE `po`
   ADD PRIMARY KEY (`nopo`);
 
 --
--- Indexes for table `po_terima`
---
-ALTER TABLE `po_terima`
-  ADD PRIMARY KEY (`nopo`);
-
---
 -- Indexes for table `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`kode`);
 
 --
--- Indexes for table `tmp_po_terima`
+-- Indexes for table `produk_stock`
 --
-ALTER TABLE `tmp_po_terima`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `produk_stock`
+  ADD PRIMARY KEY (`id_stock`);
 
 --
 -- Indexes for table `user`
@@ -312,32 +290,32 @@ ALTER TABLE `bank`
 -- AUTO_INCREMENT for table `custom`
 --
 ALTER TABLE `custom`
-  MODIFY `kode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `kode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `id_kon` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kon` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
--- AUTO_INCREMENT for table `po_terima`
+-- AUTO_INCREMENT for table `po`
 --
-ALTER TABLE `po_terima`
-  MODIFY `nopo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `po`
+  MODIFY `nopo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `kode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `kode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
--- AUTO_INCREMENT for table `tmp_po_terima`
+-- AUTO_INCREMENT for table `produk_stock`
 --
-ALTER TABLE `tmp_po_terima`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `produk_stock`
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

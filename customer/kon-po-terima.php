@@ -5,9 +5,9 @@ include "../conn.php";
 
 	$update = mysqli_query($koneksi, "UPDATE po SET status ='Barang Diterima' WHERE nopo='$nopo'") or die(mysqli_error());
 	if($update){
-		echo "<script>alert('Data Po Terima berhasil diupdate!'); window.location = 'index1.php'</script>";
+		echo "<script>alert('Data Po Terima berhasil diupdate!'); window.location = 'index1.php?link='</script>";
 	}else{
-		echo "<script>alert('Data Gagal diupdate!'); window.location = 'index1.php'</script>";
+		echo "<script>alert('Data Gagal diupdate!'); window.location = 'index1.php?link='</script>";
 	}
 
 ?>

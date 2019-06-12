@@ -2,10 +2,10 @@
             <section class="content-header">
       
                     <h1>
-                    Dashboard
+                    Daftar Purchase Order
                     </h1>
                     <ol class="breadcrumb">
-                    dashboard
+                    Daftar Purchase Order
                     </ol>
                 </section>
                 <br />
@@ -14,8 +14,7 @@
                         <div class="col-xs-12">
                           <div class="box box-danger">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Dashboard</h3>
-                                    <!-- <a href="" title="Add Divisi" id="divisi_add" data-toggle="modal" class="btn btn-info pull-right">Add Divisi</a> -->
+                                    <h3 class="box-title">Daftar Purchase Order</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
@@ -24,8 +23,8 @@
                                      <?php
                         $kodeku = $_SESSION['user_id'];
                         $query1="SELECT * FROM po a
-                        LEFT JOIN produk c ON a.kode= c.kode  
-                        where a.kd_cus='$kodeku'";
+                        LEFT JOIN produk c ON a.kode = c.kode  
+                        where a.kd_cus='$kodeku' ORDER BY a.nopo DESC";
                         $hasil=mysqli_query($koneksi, $query1) or die(mysqli_error());
                         ?>
                         <table id="example" class="table table-hover table-bordered">
@@ -59,17 +58,10 @@
                                     </center></td>
                                 <td><center><div id="thanks"><a class="btn btn-sm btn-danger" data-placement="bottom" data-toggle="tooltip" title="Cetak Invoice" href="cetak-po.php?hal=cetak&kd=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-print"></span></a> 
                                 <a class="btn btn-sm btn-success" data-placement="bottom" data-toggle="tooltip" title="Status PO" href="./index1.php?link=st_po&kd=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-tag"></span></a> 
-                                <?php if ($data['status'] == 'Terkirim') { ?>
+                                <?php if ($data['status'] == 'Barang Telah Dikirim') { ?>
                                 <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Konfirmasi Terima Barang" href="kon-po-terima.php?hal=edit&kode=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-check"></span></a>  
-
-                                <?php}else if ($data['status'] == 'Selesai') {
-                                    
-                                }else{ ?>
-                                <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Edit PO Terima" href="edit-po-terima.php?hal=edit&kode=<?php echo $data['nopo'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
-
-                                <?php } ?>
                                 </div></center></td>
-
+                            <?php } ?>
                             </tr>
                             </div>
                             <?php   

@@ -150,6 +150,12 @@ session_start();
                 switch ($select) {
                     case 'cs':
                         include 'data_custom.php';
+                        break; 
+                    case 'e_cs':
+                        include 'edit-custom.php';
+                        break;
+                    case 'edit_cus':
+                        include 'edit-customer.php';
                         break;
                     case 'po':
                         include 'data_po.php';
@@ -176,7 +182,11 @@ session_start();
             </div><!-- /.content-wrapper -->
             <script type="text/javascript">
                 $(document).ready(function(){
-                    $('#example').DataTable();
+                    $('#example').DataTable(
+                        // {
+                        //   "ordering": false
+                        // } 
+                    );
                 })
             </script>
 

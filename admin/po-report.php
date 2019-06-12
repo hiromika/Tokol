@@ -35,11 +35,11 @@
                                             <div class="panel-body">
                                                 <!-- <div class="table-responsive"> -->
                                                     <?php
-                                                    $query1="select * from po_terima";
+                                                    $query1="SELECT * FROM po";
 
                                                     if(isset($_POST['qcari'])){
                                                         $qcari=$_POST['qcari'];
-                                                        $query1="SELECT * FROM  po_terima 
+                                                        $query1="SELECT * FROM  po
                                                         where nopo like '%$qcari%'
                                                         or kd_cus like '%$qcari%'  ";
                                                     }
@@ -53,7 +53,6 @@
                                                                 <th><center>Customer </center></th>
                                                                 <th><center>Produk </center></th>
                                                                 <th><center>Tanggal </center></th>
-                                                                <th><center>Style </center></th>
                                                                 <th><center>Color </center></th>
                                                                 <th><center>Size </center></th>
                                                                 <th><center>Qty </center></th>
@@ -72,7 +71,6 @@
                                                                         <td><a href="detail-customer.php?hal=edit&kd=<?php echo $data['kd_cus'];?>"><span class="glyphicon glyphicon-user"></span> <?php echo $data['kd_cus'];?></td>
                                                                             <td><a href="detail-produk.php?hal=edit&kd=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-tag"></span> <?php echo $data['kode'];?></td>
                                                                                 <td><center><?php echo $data['tanggal'];?></center></td>
-                                                                                <td><center><?php echo $data['style'];?></center></td>
                                                                                 <td><center><?php echo $data['color'];?></center></td>
                                                                                 <td><center><?php echo $data['size'];?></center></td>
                                                                                 <td><center><?php echo $data['qty'];?></center></td>
@@ -103,7 +101,38 @@
 </div><!-- /.content-wrapper -->
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#example').DataTable();
+        $('#example').DataTable({
+             buttons: [
+            {
+                extend : 'excel',
+                title : 'Laporan PO',
+                exportOptions : {
+                    modifier : {
+                        // DataTables core
+                        order : 'index', // 'current', 'applied',
+                        //'index', 'original'
+                        page : 'all', // 'all', 'current'
+                        search : 'none' // 'none', 'applied', 'removed'
+                    },
+                    columns: [ 1, 2, 3, 4, 5, 6, 7, 8]
+                }
+            },{
+                extend : 'pdf',
+                title : 'Laporan PO',
+                exportOptions : {
+                    modifier : {
+                        // DataTables core
+                        order : 'index', // 'current', 'applied',
+                        //'index', 'original'
+                        page : 'all', // 'all', 'current'
+                        search : 'none' // 'none', 'applied', 'removed'
+                    },
+                    columns: [ 1, 2, 3, 4, 5, 6, 7, 8]
+                }
+            }
+
+        ]
+        });
     })
 </script>
 <?php include 'footer.php'; ?>

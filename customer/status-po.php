@@ -46,14 +46,18 @@
                                     <td>Size</td>
                                     <td><?php echo $data['size']; ?></td>
                                     </tr>
-                                    <tr>
-                                    <td>Tanggal Kirim</td>
-                                    <td><?php echo $data['tgl_kirim']; ?></td>
-                                    </tr>
-                                    <tr>
-                                    <td>Tanggal Export</td>
-                                    <td><?php echo $data['tgl_export']; ?></td>
-                                    </tr>
+                                    <?php
+                                    if ($data['no_surat_jalan'] > 0) { ?>
+                                        <tr>
+                                        <td>Tanggal Kirim</td>
+                                        <td><?php echo $data['tgl_kirim']; ?></td>
+                                        </tr>
+                                        <tr>
+                                        <td>No Surat Jalan</td>
+                                        <td><?php echo $data['no_surat_jalan']; ?></td>
+                                        </tr>
+                                        
+                                    <?php } ?>
                                     <tr>
                                     <td>Status</td>
                                     <td><?php echo $data['status']; ?></td>

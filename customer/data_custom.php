@@ -52,7 +52,7 @@
                                         <td><center><?php echo $data['model'];?></center></td>
                                         <td><center><img src="../assets/custom/<?php echo $data['gambar'];?>" height="80" width="80" class="img-rounded" style="border: 2px solir #333;" /></center></td>
                                         <td><center><?php echo $data['status'];?></center></td>
-                                        <td><center><div id="thanks"> <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Edit data" href="edit-custom.php?hal=edit&kode=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
+                                        <td><center><div id="thanks"> <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Edit data" href="index1.php?link=e_cs&kode=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
                                         </div></center></td>
                     <!--<td><center><?php
                             /**if($data['status'] == 'tetap'){
