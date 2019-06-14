@@ -94,10 +94,12 @@
                                         <label class="col-sm-2 col-sm-2 control-label">Size</label>
                                         <div class="col-sm-3">
                                           <select id="size" name="size" value="<?php echo $row['size']; ?>" class="form-control" required>
-                                            <option value="S">S</option>
-                                            <option value="M">M</option>
-                                            <option value="L">L</option>
-                                            <option value="XL">XL</option>
+                                                <option value="S">S</option>
+                                                <option value="M">M</option>
+                                                <option value="L">L</option>
+                                                <option value="XL">XL</option>
+                                                <option value="XXL">XXL</option>
+                                                <option value="XXXL">XXXL</option>
                                           </select>
 
                                         </div>
@@ -133,7 +135,7 @@
                                       <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">Harga</label>
                                         <div class="col-sm-3">
-                                          <input name="harga" type="text" id="harga" value="<?php echo $row['harga']; ?>" class="form-control" autocomplete="off" placeholder="Harga Produk" autocomplete="off" required />
+                                          <input name="harga" type="number" id="harga" value="<?php echo $row['harga']; ?>" class="form-control" autocomplete="off" placeholder="Harga Produk" autocomplete="off" required />
 
                                         </div>
                                       </div>
@@ -141,10 +143,24 @@
                                       <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">Status</label>
                                         <div class="col-sm-3">
-                                          <input name="status" type="text" id="status" value="<?php echo $row['status']; ?>" class="form-control" autocomplete="off" placeholder="status" autocomplete="off" required />
-
+                                          <select name="status" class="form-control">
+                                            <option value="">~ Pilih Status ~</option>}
+                                            <option value="Konfirmasi, Silahkan Lakukan Pembayaran">Konfirmasi, Silahkan Lakukan Pembayaran</option>
+                                            <option value="Pembayaran Berhasil, Menuggu Pengiriman">Pembayaran Berhasil, Menuggu Pengiriman</option>
+                                            <option value="Produk Telah dikirim">Produk Telah dikirim</option>
+                                            <option value="Selesai">Selesai</option>
+                                          </select>
+                                        
                                         </div>
+                                        <label class="col-sm-2 col-sm-2 control-label">Status Sebelumnya : </label>
+                                          <div class="col-sm-3" style="margin-top: 7px;">
+                                          <?php
+                                            echo '<span class="label label-primary">'.$row['status'].'</span>';
+                                          ?>
+                                          
+                                          </span>
                                       </div>
+                                    </div>
 
 
                                       <div class="form-group">

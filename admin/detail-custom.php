@@ -42,7 +42,7 @@
                                                     <td>Kode</td>
                                                     <td><?php echo $data['kode']; ?></td>
                                                     <td rowspan="9"><div class="pull-right image">
-                                                        <img src="../custom/<?php echo $data['gambar']; ?>" class="img-rounded" height="300" width="250" alt="User Image" style="border: 3px solid #333333;" />
+                                                        <img src="../assets/custom/<?php echo $data['gambar'];?>" class="img-rounded" height="300" width="250" alt="User Image" style="border: 3px solid #333333;" />
                                                     </div></td>
                                                 </tr>
                                                 <tr>
@@ -71,12 +71,12 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Harga</td>
-                                                    <!-- <td><?php // echo number_format($data['harga'],0,",",".");?></td> -->
-                                                    <td><?php echo $data['harga'];?></td>
+                                                    <td><?php echo number_format($data['harga'],0,",","."); ?></td>
+                                                    <!-- <td><?php echo $data['harga'];?></td> -->
                                                 </tr>
                                                 <tr>
                                                     <td>Status</td>
-                                                    <td><?php echo $data['status']; ?> Pcs</td>
+                                                    <td><?php echo $data['status']; ?></td>
                                                 </tr>
                                             </table>
                                         </div> 

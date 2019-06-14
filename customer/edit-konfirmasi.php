@@ -103,14 +103,14 @@
                             <div class="col-sm-3">
                             <?php
                             if($row['status'] == 'Bayar'){
-								echo '<span class="label label-success">Sudah di Bayar</span>';
-							}
-                            else if ($row['status'] == 'Belum' ){
-								echo '<span class="label label-danger">Belum di Bayar</span>';
-							}else{
-                echo $row['status'];
-              }
-                    ?>
+              								echo '<span class="label label-success">Sudah di Bayar</span>';
+              							}
+                                          else if ($row['status'] == 'Belum' ){
+              								echo '<span class="label label-danger">Belum di Bayar</span>';
+              							}else{
+                              echo $row['status'];
+                            }
+                                  ?>
                             
                             </span>
                             </div>

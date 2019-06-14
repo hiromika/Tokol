@@ -14,8 +14,8 @@ if (empty($_SESSION['username'])){
 			}else{
 				$row = mysqli_fetch_assoc($sql);
 			}
-            $cl = split(',', $_POST['warna']);
-            $wr = split(',', $_POST['id_stock']);
+            $cl = explode(',', $_POST['warna']);
+            $wr = explode(',', $_POST['id_stock']);
             
                 $kode        = $row['kode'];
                 $nama        = $row['nama'];

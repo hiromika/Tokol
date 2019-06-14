@@ -96,9 +96,11 @@
                                                                     <td><center><?php echo $data['color'];?></center></td>
                                                                     <td><center><?php echo $data['model'];?></center></td>
                                                                     <td><center><img src="../assets/custom/<?php echo $data['gambar'];?>" height="60" width="60" class="img-circle" /></center></td>
-                                                                    <td><center><?php echo $data['harga'];?></center></td>
+                                                                    <td><center><?php echo number_format($data['harga'],0,",","."); ?></center></td>
                                                                     <td><center><?php echo $data['status'];?></center></td>
-                                                                    <td><center><div id="thanks"><a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Edit Produk" href="edit-custom.php?hal=edit&kode=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
+                                                                    <td><center><div id="thanks">
+                                                                        <a href="detail-custom.php?kd=<?php echo $data['kode']; ?>" data-placement="bottom" data-toggle="tooltip" title="Detail Pesanan" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                                                        <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Edit Produk" href="edit-custom.php?hal=edit&kode=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
                                                                         <a onclick="return confirm ('Yakin hapus <?php echo $data['nama'];?>.?');" class="btn btn-sm btn-danger tooltips" data-placement="bottom" data-toggle="tooltip" title="Hapus Produk" href="custom.php?hal=hapus&kd=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-trash"></a></center></td>
                                                                         </tr></div>
                                                                         <?php   

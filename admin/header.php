@@ -114,7 +114,7 @@ session_start();
                 <ul class="sidebar-menu">
                     <div class="user-panel">
                         <div class="pull-left image" style="">
-                            <img src="<?php echo $_SESSION['gambar']; ?>" class="img img-circle" alt="User Image" style="border: 2px solid #3C8DBC; height: 45px !important;" />
+                            <img src="./<?php echo $_SESSION['gambar']; ?>" class="img img-circle" alt="User Image" style="border: 2px solid #3C8DBC; height: 45px !important;" />
                         </div>
                         <div class="pull-left info">
                             <p>Selamat Datang <br /><?php echo $_SESSION['username']; ?></p>
