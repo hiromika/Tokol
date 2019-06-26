@@ -116,7 +116,7 @@
       </div>
       <div class="modal-body">
         <form class="form-signin" method="post" action="proseslogin.php">
-	        <h2 class="form-signin-heading"><center><span class="glyphicon glyphicon-th-large"></span> Login</center></h2>
+	        <h2 class="form-signin-heading"><center> Login</center></h2>
 	        <hr>
 	        <div class="form-group">
 	        	<input name="username" id="username" type="input" class="form-control" placeholder="Username" autocomplete="off" required autofocus>

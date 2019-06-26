@@ -15,7 +15,12 @@
                 <section class="content">
 <?php
             $kd = $_GET['nopo'];
-			$sql = mysqli_query($koneksi, "SELECT * FROM po WHERE nopo='$kd'");
+            $hal = $_GET['hal'];
+            if ($hal == "tambahcus") {
+               $sql = mysqli_query($koneksi, "SELECT * FROM custom WHERE kode='$kd'");
+            }else{
+			         $sql = mysqli_query($koneksi, "SELECT * FROM po WHERE nopo='$kd'");
+            }
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: po-terima.php");
 			}else{
@@ -34,11 +39,18 @@
                         </div>
                         <div class="panel-body">
                   <div class="form-panel">
-                      <form class="form-horizontal style-form" action="insert-po-kirim.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                      <form class="form-horizontal style-form" action="insert-po-kirim.php?hal=<?php echo ($hal == 'tambahcus')?'cus':'' ?> " method="post" enctype="multipart/form-data" name="form1" id="form1">
                           <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">No Po</label>
                               <div class="col-sm-3">
-                                  <input name="nopo" type="text" value="<?php echo $row['nopo']; ?>" id="nopo" class="form-control" autocomplete="off" readonly="readonly"/>
+                                  <input name="nopo" type="text" value="<?php 
+                                  if($hal == 'tambahcus'){
+                                    echo $row['kode'];
+                                  }else{
+                                    echo $row['nopo']; 
+                                  }
+
+                                  ?>" id="nopo" class="form-control" autocomplete="off" readonly="readonly"/>
                               </div>
                           </div>
                           <div class="form-group">

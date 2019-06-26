@@ -107,16 +107,16 @@
                                                 <input name="stok[]" type="number" value="<?php echo $value['stock_warna'] ?>" class="form-control" autocomplete="off" placeholder="Stok" autocomplete="off" required />
                                               </th>
                                               <th>
-                                                  <button type="button" class="btn btn-danger removewarna"><span class="glyphicon glyphicon-minus"></span></button> &nbsp;
+                                                  <button type="button" class="btn btn-danger" onclick="removewarna()"><span class="glyphicon glyphicon-minus"></span></button> &nbsp;
                                                   <?php if (--$number === 0) { ?>
                                                   <button type="button" class="btn btn-info addwarna" onclick="addwarna()"><span class="glyphicon glyphicon-plus"></span></button>
                                                  <?php }  ?>
                                               </th>
                                             </tr>
                                           <?php } ?>
-                                          <tr id="wrnext">
+                                          <div id="wrnext">
                                               
-                                          </tr>
+                                          </div>
                                         </table>  
                                       </div>
                                     </div> 
@@ -155,7 +155,7 @@
   function addwarna(){
       no++;
       $('.addwarna').remove();
-      $('#wrnext').append('<th><input name="warna[]" type="text" class="form-control" value="" autocomplete="off" placeholder="Warna Produk" autocomplete="off" required /></th> <th><input name="ukuran[]" type="text" class="form-control" value="" autocomplete="off" placeholder="Ukuran Produk" autocomplete="off" required /></th> <th><input name="stok[]" type="number" value="" class="form-control" autocomplete="off" placeholder="Stok" autocomplete="off" required /></th> <th><button type="button" class="btn btn-danger removewarna"><span class="glyphicon glyphicon-minus"></span></button> &nbsp; <button type="button" class="btn btn-info addwarna" onclick="addwarna()"><span class="glyphicon glyphicon-plus"></span></button></th>');
+      $('#wrnext').appendChild('<tr><th><input name="warna[]" type="text" class="form-control" value="" autocomplete="off" placeholder="Warna Produk" autocomplete="off" required /></th> <th><input name="ukuran[]" type="text" class="form-control" value="" autocomplete="off" placeholder="Ukuran Produk" autocomplete="off" required /></th> <th><input name="stok[]" type="number" value="" class="form-control" autocomplete="off" placeholder="Stok" autocomplete="off" required /></th> <th><button type="button" class="btn btn-danger removewarna"><span class="glyphicon glyphicon-minus"></span></button> &nbsp; <button type="button" class="btn btn-info addwarna" onclick="addwarna()"><span class="glyphicon glyphicon-plus"></span></button></th></tr>');
   }
 
 
@@ -163,16 +163,16 @@
     $(this).parent("tr:first").remove();
   });
 
-  // function removewarna(id){
-  //   no--;
-  //   $('#idno'+id).remove();
-  //   $()
-    // $('.wrfirst'+no).append('<button type="button" class="btn btn-info addwarna" onclick="addwarna()"><span class="glyphicon glyphicon-plus"></span></button>&nbsp;<button type="button" onclick="removewarna('+no+')" class="btn btn-danger addwarna"><span class="glyphicon glyphicon-minus"></span></button></div></di v>');
+  function removewarna(id){
+    no--;
+    $('#idno'+id).remove();
+    $()
+    $('.wrfirst'+no).append('<button type="button" class="btn btn-info addwarna" onclick="addwarna()"><span class="glyphicon glyphicon-plus"></span></button>&nbsp;<button type="button" onclick="removewarna('+no+')" class="btn btn-danger addwarna"><span class="glyphicon glyphicon-minus"></span></button></div></di v>');
     
-    // if ($('.wrfirst').children().length == 0 && no == 0) {
-    //     $('.wrfirst').append('<button type="button" class="btn btn-info addwarna" onclick="addwarna()"><span class="glyphicon glyphicon-plus"></span></button>');
-    // }
-  // }
+    if ($('.wrfirst').children().length == 0 && no == 0) {
+        $('.wrfirst').append('<button type="button" class="btn btn-info addwarna" onclick="addwarna()"><span class="glyphicon glyphicon-plus"></span></button>');
+    }
+  }
 
 </script>
 

@@ -53,12 +53,16 @@
                                         <td><center><img src="../assets/custom/<?php echo $data['gambar'];?>" height="80" width="80" class="img-rounded" style="border: 2px solir #333;" /></center></td>
                                         <td><center><?php echo $data['status'];?></center></td>
                                         <td><center><div id="thanks"> 
-                                            <?php if ($data['status'] == "Konfirmasi, Silahkan Lakukan Pembayaran") { ?>
-                                             <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Konfirmasi Prmbayaran" href="index1.php?link=bayar_edit&kode=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-edit"></span></a>
+                                            <?php if ($data['status'] == "Konfirmasi, Silahkan Lakukan Pembayaran" ) { ?>
+                                             <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Konfirmasi Prmbayaran" href="index1.php?link=bayar_edit_cus&kode=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-edit"></span></a>
 
-                                            <?php }else{ ?>
+                                            <?php }
+                                            if ($data['status'] == 'Menuggu Konfirmasi'){ ?>
                                             <a class="btn btn-sm btn-primary"  data-placement="bottom" data-toggle="tooltip" title="Edit data" href="index1.php?link=e_cs&kode=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-edit"></span></a>  
                                                 
+                                            <?php }
+                                                if ($data['status'] == 'Barang Telah Dikirim') { ?>
+                                            <a class="btn btn-sm btn-primary" data-placement="bottom" data-toggle="tooltip" title="Konfirmasi Terima Barang" href="kon-po-terima.php?hal=editcus&kode=<?php echo $data['kode'];?>"><span class="glyphicon glyphicon-check"></span></a> 
                                             <?php } ?>
 
                                         </div></center></td>

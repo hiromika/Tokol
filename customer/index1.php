@@ -171,6 +171,9 @@ session_start();
                         break; 
                     case 'bayar_edit':
                         include 'edit-konfirmasi.php';
+                        break; 
+                    case 'bayar_edit_cus':
+                        include 'edit-konfirmasi-cus.php';
                         break;
                     default:
                         include 'data_po.php';

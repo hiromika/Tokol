@@ -15,8 +15,13 @@
                 <!-- Main content -->
                 <section class="content">
                 <?php
-            $kd = $_GET['kode'];
-			$sql = mysqli_query($koneksi, "SELECT a.*, b.id_stock, b.qty FROM konfirmasi a LEFT JOIN po b ON a.nopo = b.nopo WHERE a.nopo='$kd'");
+      $kd = $_GET['kode'];
+      $hal = $_GET['hal'];
+      if ($hal == 'editcus') {
+      $sql = mysqli_query($koneksi, "SELECT a.*, b.id_stock, b.qty FROM konfirmasi a LEFT JOIN po b ON a.nopo = b.nopo WHERE a.nopo='$kd' AND a.jenis ='2'");
+      }else{
+			$sql = mysqli_query($koneksi, "SELECT a.*, b.id_stock, b.qty FROM konfirmasi a LEFT JOIN po b ON a.nopo = b.nopo WHERE a.nopo='$kd' AND a.jenis ='1'");
+      }
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: konfirmasi.php");
 			}else{
@@ -34,15 +39,34 @@
 				
         $update = mysqli_query($koneksi, "UPDATE konfirmasi SET status='$status' WHERE id_kon='$id_kon'") or die(mysqli_error());
         if ($status == "Bayar") {
-            $update2 = mysqli_query($koneksi, "UPDATE po SET status='Pembayaran Telah di konfirmasi, Menuggu Pengiriman' WHERE nopo='$nopo'") or die(mysqli_error());
-				    $update3 = mysqli_query($koneksi, "UPDATE produk_stock SET stock_warna = stock_warna - $row[qty] WHERE id_stock = '$row[id_stock]'") or die(mysqli_error());
+
+            if ($hal == 'editcus') {
+              $update2 = mysqli_query($koneksi, "UPDATE custom SET status='Pembayaran Telah di konfirmasi, Menuggu Pengiriman' WHERE kode='$nopo'") or die(mysqli_error());
+            }else{
+              $update2 = mysqli_query($koneksi, "UPDATE po SET status='Pembayaran Telah di konfirmasi, Menuggu Pengiriman' WHERE nopo='$nopo'") or die(mysqli_error());
+  				    $update3 = mysqli_query($koneksi, "UPDATE produk_stock SET stock_warna = stock_warna - $row[qty] WHERE id_stock = '$row[id_stock]'") or die(mysqli_error());
+            }
+
         }else{
-          $update2 = mysqli_query($koneksi, "UPDATE po SET status='Pembayaran di Tolak Oleh Admin' WHERE nopo='$nopo'") or die(mysqli_error());
+            if ($hal == 'editcus') {
+              $update2 = mysqli_query($koneksi, "UPDATE custom SET status='Pembayaran di Tolak Oleh Admin' WHERE kode='$nopo'") or die(mysqli_error());
+            }else{
+              $update2 = mysqli_query($koneksi, "UPDATE po SET status='Pembayaran di Tolak Oleh Admin' WHERE nopo='$nopo'") or die(mysqli_error());
+            }
         }
 				if($update){
-          echo "<script>alert('Data berhasil disimpan.'); window.location = 'po-terima.php'</script>";
+            if ($hal == 'editcus') {
+              echo "<script>alert('Data berhasil disimpan.'); window.location = 'custom.php'</script>";
+
+            }else{
+              echo "<script>alert('Data berhasil disimpan.'); window.location = 'po-terima.php'</script>";
+            }
 				}else{
-          echo "<script>alert('Data gagal disimpan, silahkan coba lagi'); window.location = 'po-terima.php'</script>";
+           if ($hal == 'editcus') {
+              echo "<script>alert('Data gagal disimpan, silahkan coba lagi'); window.location = 'custom.php'</script>";
+           }else{
+              echo "<script>alert('Data gagal disimpan, silahkan coba lagi'); window.location = 'po-terima.php'</script>";
+           }
 				}
 			}
 			

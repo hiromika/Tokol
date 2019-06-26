@@ -45,11 +45,18 @@
                             $status  = $_POST['status'];
 
                             $update = mysqli_query($koneksi, "UPDATE custom SET size='$size', color='$color', model='$model', harga='$harga', status='$status' WHERE kode='$kode'") or die(mysqli_error());
+
+                            if ($row['status'] == 'Menuggu Konfirmasi' && $status == 'Konfirmasi, Silahkan Lakukan Pembayaran') {
+
+                              $intrig = mysqli_query($koneksi, "INSERT INTO konfirmasi(nopo,jenis,kd_cus,jumlah,status) VALUES('$kode','2','$kd_cus', '$harga','Belum')") or die(mysqli_error());
+                            }
+
                             if($update){
                               echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Data berhasil disimpan.</div>';
                             }else{
                               echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Data gagal disimpan, silahkan coba lagi.</div>';
                             }
+                            
                           }
 
                           ?>
@@ -146,9 +153,7 @@
                                           <select name="status" class="form-control">
                                             <option value="">~ Pilih Status ~</option>}
                                             <option value="Konfirmasi, Silahkan Lakukan Pembayaran">Konfirmasi, Silahkan Lakukan Pembayaran</option>
-                                            <option value="Pembayaran Berhasil, Menuggu Pengiriman">Pembayaran Berhasil, Menuggu Pengiriman</option>
-                                            <option value="Produk Telah dikirim">Produk Telah dikirim</option>
-                                            <option value="Selesai">Selesai</option>
+                                            <option value="Custom Telah Ditolak Oleh Admin">Tolak Permintaan</option>
                                           </select>
                                         
                                         </div>

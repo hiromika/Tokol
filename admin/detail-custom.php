@@ -71,8 +71,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Harga</td>
-                                                    <td><?php echo number_format($data['harga'],0,",","."); ?></td>
-                                                    <!-- <td><?php echo $data['harga'];?></td> -->
+                                                    <td><?php echo  ($data['harga'] > 0)?number_format($data['harga'],0,",","."):'Belum Ditentukan'; ?></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Status</td>
