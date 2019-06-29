@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2019 at 05:44 PM
+-- Generation Time: Jun 29, 2019 at 06:17 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -78,15 +78,11 @@ CREATE TABLE `custom` (
   `model` varchar(100) NOT NULL,
   `gambar` text NOT NULL,
   `harga` varchar(10) NOT NULL,
-  `status` varchar(20) NOT NULL DEFAULT 'Menuggu Konfirmasi'
+  `no_surat_jalan` int(11) NOT NULL,
+  `tgl_kirim` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `tgl_terima` datetime NOT NULL,
+  `status` varchar(200) NOT NULL DEFAULT 'Menuggu Konfirmasi'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `custom`
---
-
-INSERT INTO `custom` (`kode`, `tanggal`, `kd_cus`, `nama`, `size`, `color`, `model`, `gambar`, `harga`, `status`) VALUES
-(3, '', '3', 'bambang', 'S', 'dark blue', 'long', '1554969925_tmp_logo_lacika_sakti.png', '', 'Menuggu Konfirmasi');
 
 -- --------------------------------------------------------
 
@@ -97,22 +93,14 @@ INSERT INTO `custom` (`kode`, `tanggal`, `kd_cus`, `nama`, `size`, `color`, `mod
 CREATE TABLE `konfirmasi` (
   `id_kon` int(6) NOT NULL,
   `nopo` varchar(20) NOT NULL,
+  `jenis` int(11) NOT NULL DEFAULT '1',
   `kd_cus` varchar(20) NOT NULL,
   `bayar_via` varchar(20) NOT NULL,
   `tanggal` datetime NOT NULL,
-  `jumlah` int(10) NOT NULL,
+  `jumlah` int(11) NOT NULL,
   `bukti_transfer` text NOT NULL,
   `status` varchar(100) NOT NULL DEFAULT 'Belum'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `konfirmasi`
---
-
-INSERT INTO `konfirmasi` (`id_kon`, `nopo`, `kd_cus`, `bayar_via`, `tanggal`, `jumlah`, `bukti_transfer`, `status`) VALUES
-(6, '6', '3', 'Mandiri', '2019-06-09 03:14:18', 213123, '../admin/bukti_transfer/43-431732_clipart-royalty-free-stock-six-rainbow-circular-arrows.png', 'Bayar'),
-(7, '7', '3', 'BNI', '2019-06-12 03:40:30', 213123, '../admin/bukti_transfer/about.png', 'Bayar'),
-(8, '8', '3', 'BNI', '2019-06-12 18:53:08', 213123, '../admin/bukti_transfer/a3MqEXEn_700w_0.jpg', 'Bayar');
 
 -- --------------------------------------------------------
 
@@ -136,15 +124,6 @@ CREATE TABLE `po` (
   `status` varchar(50) NOT NULL DEFAULT 'Menuggu Pembayaran'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `po`
---
-
-INSERT INTO `po` (`nopo`, `kd_cus`, `kode`, `id_stock`, `tanggal`, `color`, `size`, `qty`, `total`, `tgl_kirim`, `no_surat_jalan`, `tgl_terima`, `status`) VALUES
-(6, '3', 30, 20, '2019-06-08 20:11:00', 'hitam', 'S', 1, 213123, '2019-06-11 04:08:38', 12323, '0000-00-00 00:00:00', 'Barang Diterima'),
-(7, '3', 30, 17, '2019-06-11 20:40:08', 'asadas', 'L', 1, 213123, '2019-06-12 04:12:27', 2222, '0000-00-00 00:00:00', 'Barang Diterima'),
-(8, '3', 30, 17, '2019-06-12 11:52:55', 'asadas', 'L', 1, 213123, '2019-06-12 19:23:50', 22222, '0000-00-00 00:00:00', 'Barang Diterima');
-
 -- --------------------------------------------------------
 
 --
@@ -166,13 +145,12 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`kode`, `nama`, `jenis`, `harga`, `keterangan`, `stok`, `gambar`) VALUES
-(5, 'Cool', 'T-Shirt', 95000, 'Cotton Combed 30s, Black Color, DTG Printing', 4, 'gambar_produk/baju8.jpg'),
-(6, 'Devil Wings', 'T-Shirt', 105000, 'Cotton Combed 30s, Black Color, DTG Printing', 5, 'gambar_produk/baju9.jpg'),
-(7, 'Scream', 'T-Shirt', 100000, 'Cotton Combed 30s, White Color, DTG Printing', 4, 'gambar_produk/baju10.jpg'),
-(8, 'Black Dragon', 'T-Shirt', 110000, 'Cotton Combed 30s, Red Color, DTG Printing', 1, 'gambar_produk/baju11.jpg'),
-(9, 'Galaxy', 'T-Shirt', 120000, 'Cotton Combed 30s, Black Color, DTG Printing', 8, 'gambar_produk/baju12.jpg'),
-(10, 'Japan', 'T-Shirt', 110000, 'Cotton Combed 30s, Black Color, DTG Printing', 6, 'gambar_produk/baju14.JPG'),
-(30, '2312dasdas', 'Sweater', 213123, 'asdasd', 12, 'gambar_produk/acinstr.png');
+(1, 'Kaos Gambar 1', 'T-Shirt', 50000, 'Mantab', 60, 'gambar_produk/baju8.jpg'),
+(2, 'Kaos Gambar 2', 'T-Shirt', 60000, 'Mantul', 60, 'gambar_produk/baju10.jpg'),
+(3, 'Kaos Gambar 3', 'T-Shirt', 65000, 'Mantul', 60, 'gambar_produk/baju16.JPG'),
+(4, 'Kaos Gambar 4', 'T-Shirt', 50000, 'Mantul', 60, 'gambar_produk/baju11.jpg'),
+(5, 'Kaos Gambar 5', 'T-Shirt', 70000, 'Mantul', 60, 'gambar_produk/baju12.jpg'),
+(6, 'Kaos Gambar 6', 'T-Shirt', 70000, 'Mantul', 60, 'gambar_produk/smile_skull_lady.jpg');
 
 -- --------------------------------------------------------
 
@@ -193,10 +171,42 @@ CREATE TABLE `produk_stock` (
 --
 
 INSERT INTO `produk_stock` (`id_stock`, `id_produk`, `warna`, `ukuran`, `stock_warna`) VALUES
-(17, 30, 'asadas', 'L', 19),
-(18, 30, 'asdasdsd', 'S', 2),
-(19, 30, 'hitam', 'L', 2),
-(20, 30, 'hitam', 'S', 2);
+(1, 1, 'Hitam', 'S', 10),
+(2, 1, 'Hitam', 'M', 10),
+(3, 1, 'Hitam', 'L', 10),
+(4, 1, 'Biru', 'S', 10),
+(5, 1, 'Biru', 'M', 10),
+(6, 1, 'Biru', 'L', 10),
+(7, 2, 'Putih', 'S', 10),
+(8, 2, 'Putih', 'M', 10),
+(9, 2, 'Putih', 'L', 10),
+(10, 2, 'Hitam', 'S', 10),
+(11, 2, 'Hitam', 'M', 10),
+(12, 2, 'Hitam', 'L', 10),
+(13, 3, 'Hitam', 'S', 10),
+(14, 3, 'Hitam', 'M', 10),
+(15, 3, 'Hitam', 'L', 10),
+(16, 3, 'Putih', 'S', 10),
+(17, 3, 'Putih', 'M', 10),
+(18, 3, 'Putih', 'L', 10),
+(19, 4, 'Merah', 'S', 10),
+(20, 4, 'Merah', 'M', 10),
+(21, 4, 'Merah', 'L', 10),
+(22, 4, 'Hitam', 'S', 10),
+(23, 4, 'Hitam', 'M', 10),
+(24, 4, 'Hitam', 'L', 10),
+(25, 5, 'Hitam', 'S', 10),
+(26, 5, 'Hitam', 'M', 10),
+(27, 5, 'Hitam', 'L', 10),
+(28, 5, 'Putih', 'S', 10),
+(29, 5, 'Putih', 'M', 10),
+(30, 5, 'Putih', 'L', 10),
+(31, 6, 'Abu - Abu', 'S', 10),
+(32, 6, 'Abu - Abu', 'M', 10),
+(33, 6, 'Abu - Abu', 'L', 10),
+(34, 6, 'Hitam', 'S', 10),
+(35, 6, 'Hitam', 'M', 10),
+(36, 6, 'Hitam', 'L', 10);
 
 -- --------------------------------------------------------
 
@@ -221,9 +231,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `kd_cus`, `nama`, `alamat`, `no_telp`, `username`, `password`, `role`, `gambar`) VALUES
-(1, '1', 'admin', 'admin', '123123', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, ''),
-(3, '3', 'user', 'asd', '2132', 'user', '12dea96fec20593566ab75692c9949596833adc9', 2, '../admin/gambar_customer/Android_Studio_icon.svg.png'),
-(5, '5', 'asd', 'asd', '213', 'asd', 'f10e2821bbbea527ea02200352313bc059445190', 2, 'gambar_customer/acinstr.png');
+(1, '1', 'admin', 'admin', '123123', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'gambar_admin/mandom.jpg'),
+(3, '3', 'user', 'asd', '2132', 'user', '12dea96fec20593566ab75692c9949596833adc9', 2, '../admin/gambar_customer/Android_Studio_icon.svg.png');
 
 --
 -- Indexes for dumped tables
@@ -290,32 +299,32 @@ ALTER TABLE `bank`
 -- AUTO_INCREMENT for table `custom`
 --
 ALTER TABLE `custom`
-  MODIFY `kode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kode` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `konfirmasi`
 --
 ALTER TABLE `konfirmasi`
-  MODIFY `id_kon` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_kon` int(6) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `po`
 --
 ALTER TABLE `po`
-  MODIFY `nopo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `nopo` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `kode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `kode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `produk_stock`
 --
 ALTER TABLE `produk_stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
