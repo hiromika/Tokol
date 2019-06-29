@@ -3,10 +3,10 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-        Dashboard
+        Produk
         </h1>
         <ol class="breadcrumb">
-        dashboard
+        Produk
         </ol>
     </section>
     <br />
@@ -15,7 +15,7 @@
             <div class="col-xs-12">
               <div class="box box-danger">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Dashboard</h3>
+                        <h3 class="box-title">Produk</h3>
                         <!-- <a href="" title="Add Divisi" id="divisi_add" data-toggle="modal" class="btn btn-info pull-right">Add Divisi</a> -->
                     </div>
                     <!-- /.box-header -->
@@ -35,7 +35,7 @@
                           <div class="col-lg-12">
                             <div class="panel panel-success">
                               <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-user"></i> Edit Data Custom </h3> 
+                                <h3 class="panel-title"><i class="fa fa-user"></i> Edit Data Produk </h3> 
                               </div>
                               <div class="panel-body">
                                 <div class="form-panel">
